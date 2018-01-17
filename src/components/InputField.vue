@@ -1,5 +1,5 @@
 <template>
-    <input @blur="saveNewValue" v-model="inputContent" v-if="type === 'text'" type="text" />
+    <input @blur="saveNewValue" ref="inputField" v-model="inputContent" v-if="type === 'text'" type="text" />
 </template>
 
 <script>
@@ -22,6 +22,7 @@
     },
     created: function () {
       this.inputContent = this.value
+      this.$nextTick(() => this.$refs.inputField.focus())
     }
   }
 </script>
