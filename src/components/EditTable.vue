@@ -29,7 +29,7 @@
           [
             {
               content: '07.01.2018',
-              type: 'text'
+              type: 'date'
             },
             {
               content: 'Manuel Peters',
@@ -39,7 +39,7 @@
           [
             {
               content: '14.01.2018',
-              type: 'text'
+              type: 'date'
             },
             {
               content: 'Beni Hähnel',
