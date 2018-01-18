@@ -22,7 +22,7 @@
     },
     methods: {
       saveNewValue: function (date) {
-        if (date) {
+        if (date && (typeof date.toLocaleDateString === 'function')) {
           this.inputContent = date.toLocaleDateString()
         }
         this.$emit('input', this.inputContent)
