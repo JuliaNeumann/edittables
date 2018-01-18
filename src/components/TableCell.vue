@@ -1,7 +1,7 @@
 <template>
     <td>
-        <span @click="toggleEdit" v-if="!editMode">{{ content }}</span>
-        <InputField @toggleEditMode="toggleEdit" v-if="editMode" v-model="content" :type="cell.type"/>
+        <span @click="startEdit" v-if="!editMode">{{ content }}</span>
+        <InputField @stopEditMode="stopEdit" v-if="editMode" v-model="content" :type="cell.type"/>
     </td>
 </template>
 
@@ -23,8 +23,11 @@
       }
     },
     methods: {
-      toggleEdit: function () {
-        this.editMode = !this.editMode
+      startEdit: function () {
+        this.editMode = true
+      },
+      stopEdit: function () {
+        this.editMode = false
       }
     }
   }

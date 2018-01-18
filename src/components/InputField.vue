@@ -1,5 +1,5 @@
 <template>
-    <input @blur="saveNewValue" ref="inputField" v-model="inputContent" v-if="type === 'text'" type="text" />
+    <input @blur="saveNewValue" @keydown.enter="saveNewValue" ref="inputField" v-model="inputContent" v-if="type === 'text'" type="text" />
 </template>
 
 <script>
@@ -16,8 +16,9 @@
     },
     methods: {
       saveNewValue: function () {
+        console.log('enter')
         this.$emit('input', this.inputContent)
-        this.$emit('toggleEditMode')
+        this.$emit('stopEditMode')
       }
     },
     created: function () {
