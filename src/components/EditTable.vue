@@ -33,7 +33,7 @@
               type: 'date'
             },
             {
-              content: 'Manuel Peters',
+              content: 'Manuel',
               type: 'text'
             },
             {
@@ -47,7 +47,7 @@
               type: 'date'
             },
             {
-              content: 'Beni Hähnel',
+              content: 'Beni',
               type: 'text'
             },
             {
