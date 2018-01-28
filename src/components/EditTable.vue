@@ -23,7 +23,8 @@
       return {
         heads: [
           'Datum',
-          'Moderator'
+          'Moderator',
+          'Musiker'
         ],
         rows: [
           [
@@ -34,6 +35,10 @@
             {
               content: 'Manuel Peters',
               type: 'text'
+            },
+            {
+              content: 'Jonas\nSusi',
+              type: 'longtext'
             }
           ],
           [
@@ -44,6 +49,10 @@
             {
               content: 'Beni Hähnel',
               type: 'text'
+            },
+            {
+              content: 'Elli\nFritz\nJohanna',
+              type: 'longtext'
             }
           ]
         ]

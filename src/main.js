@@ -5,6 +5,7 @@ import App from './App'
 
 Vue.config.productionTip = false
 
+// custom filters
 Vue.filter('timestampToLocalString', function (timestamp) {
   return new Date(timestamp).toLocaleDateString()
 })
