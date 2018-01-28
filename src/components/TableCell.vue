@@ -1,6 +1,7 @@
 <template>
     <td>
-        <span @click="startEdit" v-if="!editMode">{{ content }}</span>
+        <span @click="startEdit" v-if="!editMode && !(cell.type === 'date')">{{ content }}</span>
+        <span @click="startEdit" v-else-if="!editMode">{{ content | timestampToLocalString }}</span>
         <InputField @stopEditMode="stopEdit" v-if="editMode" v-model="content" :type="cell.type"/>
     </td>
 </template>

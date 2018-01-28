@@ -28,7 +28,7 @@
         rows: [
           [
             {
-              content: '07.01.2018',
+              content: 1515279600000,
               type: 'date'
             },
             {
@@ -38,7 +38,7 @@
           ],
           [
             {
-              content: '14.01.2018',
+              content: 1515884400000,
               type: 'date'
             },
             {

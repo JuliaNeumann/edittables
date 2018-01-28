@@ -1,6 +1,6 @@
 <template>
     <input @blur="saveNewValue" @keydown.enter="saveNewValue" ref="inputField" v-model="inputContent" v-if="type === 'text'" type="text" />
-    <datepicker v-click-outside="saveNewValue" v-else-if="type === 'date'" language="de" :inline="true" @selected="saveNewValue"></datepicker>
+    <datepicker v-click-outside="saveNewValue" v-else-if="type === 'date'" language="de" :inline="true" @selected="saveNewValue" v-model="inputContent"></datepicker>
 </template>
 
 <script>
@@ -23,8 +23,8 @@
     },
     methods: {
       saveNewValue: function (date) {
-        if (date && (typeof date.toLocaleDateString === 'function')) {
-          this.inputContent = date.toLocaleDateString()
+        if (date && (typeof date.getTime === 'function')) {
+          this.inputContent = date.getTime()
         }
         this.inputContent = this.inputContent || this.value
         this.$emit('input', this.inputContent)
@@ -35,6 +35,8 @@
       if (this.type === 'text') {
         this.inputContent = this.value
         this.$nextTick(() => this.$refs.inputField.focus())
+      } else if (this.type === 'date') {
+        this.inputContent = new Date(this.value)
       }
     },
     directives: {
