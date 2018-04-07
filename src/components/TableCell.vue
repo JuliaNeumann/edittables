@@ -1,8 +1,11 @@
 <template>
     <td>
-        <div @click="startEdit" @focus="startEdit" v-if="!editMode && (cell.type === 'date')">{{ content | timestampToLocalString }}</div>
-        <div @click="startEdit" @focus="startEdit" v-else-if="!editMode && (cell.type === 'longtext')" v-html="htmlContent"></div>
-        <div @click="startEdit" @focus="startEdit" v-else-if="!editMode">{{ content }}</div>
+        <div class="cell__content" @click="startEdit" @focus="startEdit" v-if="!editMode && (cell.type === 'date')">
+            {{ content | timestampToLocalString }}
+        </div>
+        <div class="cell__content" @click="startEdit" @focus="startEdit" v-else-if="!editMode">
+            {{ content }}
+        </div>
         <InputField @stopEditMode="stopEdit" v-if="editMode" v-model="content" :type="cell.type"/>
     </td>
 </template>
@@ -24,11 +27,6 @@
         content: this.cell.content
       }
     },
-    computed: {
-      htmlContent: function () {
-        return this.content.replace(/\n/g, '<br />')
-      }
-    },
     methods: {
       startEdit: function () {
         this.editMode = true
@@ -39,3 +37,9 @@
     }
   }
 </script>
+
+<style scoped>
+    .cell__content {
+        white-space: pre-line;
+    }
+</style>
