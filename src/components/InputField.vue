@@ -1,52 +1,41 @@
-<template>
-    <!-- one-line text input -->
-    <input @blur="saveNewValue" @keydown.enter.tab="saveNewValue" ref="inputField" v-model="inputContent" v-if="type === 'text'" type="text" />
-
-    <!-- multi-line text input -->
-    <textarea @blur="saveNewValue" @keydown.tab="saveNewValue" ref="inputField" v-model="inputContent" v-else-if="type === 'longtext'"></textarea>
-
-    <!-- date -->
-    <datepicker v-click-outside="saveNewValue" v-else-if="type === 'date'" language="de" :inline="true" @selected="saveNewValue" v-model="inputContent"></datepicker>
-</template>
-
 <script>
-  import Datepicker from 'vuejs-datepicker'
-  import ClickOutside from 'vue-click-outside'
+  import DateInput from './inputs/DateInput'
+  import SingleLineInput from './inputs/SingleLineInput'
+  import MultiLineInput from './inputs/MultiLineInput'
+
+  const mapTypeToComponent = {
+    'date': DateInput,
+    'text': SingleLineInput,
+    'longtext': MultiLineInput
+  }
 
   export default {
-    name: 'InputCell',
     components: {
-      Datepicker
+      DateInput,
+      SingleLineInput,
+      MultiLineInput
     },
+    name: 'InputField',
     props: [
       'value',
       'type'
     ],
-    data: function () {
-      return {
-        inputContent: ''
-      }
-    },
-    methods: {
-      saveNewValue: function (date) {
-        if (date && (typeof date.getTime === 'function')) {
-          this.inputContent = date.getTime()
+    render: function (h) {
+      const self = this
+      return h(mapTypeToComponent[this.type], {
+        props: {
+          value: this.value
+        },
+        on: {
+          input: function (payload) {
+            self.$emit('input', payload)
+            self.$emit('stopEditMode')
+          }
+        },
+        domProps: {
+          value: self.value
         }
-        this.inputContent = this.inputContent || this.value
-        this.$emit('input', this.inputContent)
-        this.$emit('stopEditMode')
-      }
-    },
-    created: function () {
-      if (this.type === 'date') {
-        this.inputContent = new Date(this.value)
-      } else {
-        this.inputContent = this.value
-        this.$nextTick(() => this.$refs.inputField.focus())
-      }
-    },
-    directives: {
-      ClickOutside
+      })
     }
   }
 </script>
