@@ -1,5 +1,5 @@
 <template>
-    <th>
+    <th class="head">
         {{ text }}
     </th>
 </template>
@@ -12,3 +12,10 @@
     ]
   }
 </script>
+
+<style scoped>
+    .head {
+        border: 1px solid grey;
+        padding: 10px;
+    }
+</style>

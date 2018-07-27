@@ -1,12 +1,22 @@
 <template>
-    <td>
-        <div class="cell__content" @click="startEdit" @focus="startEdit" v-if="!editMode && (cell.type === 'date')">
+    <td class="cell">
+        <div class="cell__content"
+             @click="startEdit"
+             @focus="startEdit"
+             v-if="!editMode && (cell.type === 'date')">
             {{ content | timestampToLocalString }}
         </div>
-        <div class="cell__content" @click="startEdit" @focus="startEdit" v-else-if="!editMode">
+        <div class="cell__content"
+             :class="`cell__content--${cell.type}`"
+             @click="startEdit"
+             @focus="startEdit"
+             v-else-if="!editMode">
             {{ content }}
         </div>
-        <InputField @stopEditMode="stopEdit" v-if="editMode" v-model="content" :type="cell.type"/>
+        <InputField @stopEditMode="stopEdit"
+                    v-if="editMode"
+                    v-model="content"
+                    :type="cell.type"/>
     </td>
 </template>
 
@@ -39,7 +49,15 @@
 </script>
 
 <style scoped>
+    .cell {
+        border: 1px solid grey;
+    }
     .cell__content {
+        padding: 10px;
+        text-align: left;
+    }
+    .cell__content--longtext {
         white-space: pre-line;
+        margin-top: -10px;
     }
 </style>
