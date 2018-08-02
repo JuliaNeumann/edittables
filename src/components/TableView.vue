@@ -4,8 +4,12 @@
         <template v-for="(head, index) in heads">
             <TableGroupHeader v-if="startGroup(index)"
                               :text="groups[head.group]"
+                              :open="activeGroups.indexOf(head.group) > -1"
                               @click.native="toggleGroup(head.group)"/>
-            <tr :key="index" v-if="showRow(head)">
+            <tr :key="index"
+                v-if="showRow(head)"
+                class="row"
+                :class="head.group ? 'row--group' : ''">
                 <TableHead :text="head.content" />
                 <TableCell v-for="(row, rowIndex) in rows"
                            :cell="row[index]"
@@ -72,5 +76,8 @@
     .table {
         border-collapse: collapse;
         border-spacing: 0;
+    }
+    .row--group {
+        background-color: #eee;
     }
 </style>

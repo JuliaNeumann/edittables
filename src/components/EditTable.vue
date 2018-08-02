@@ -44,6 +44,9 @@
           {
             content: 'Predigtlied',
             group: 1
+          },
+          {
+            content: 'Besonderheiten'
           }
         ],
         groups: {
@@ -70,6 +73,10 @@
             {
               content: 'Ich verdanke dir soviel, mein Gott',
               type: 'text'
+            },
+            {
+              content: 'Taufe',
+              type: 'longtext'
             }
           ],
           [
@@ -87,13 +94,15 @@
             },
             {
               content: 'Elli\nFritz\nJohanna',
-              type: 'longtext',
-              group: 1
+              type: 'longtext'
             },
             {
               content: 'Freude wohnt in deinem Haus',
-              type: 'text',
-              group: 1
+              type: 'text'
+            },
+            {
+              content: '',
+              type: 'longtext'
             }
           ]
         ]

@@ -2,6 +2,7 @@
     <article class="card">
         <h2 class="card__title"
             @click="toggleShow">
+            <ArrowToggle :direction="show ? 'down': 'right'" class="arrow--big" />
             {{ row[0].content | timestampToLocalString }}
         </h2>
         <TableView class="card__table"
@@ -14,11 +15,13 @@
 
 <script>
   import TableView from './TableView'
+  import ArrowToggle from './ArrowToggle'
 
   export default {
     name: 'CardView',
     components: {
-      TableView
+      TableView,
+      ArrowToggle
     },
     props: [
       'row',
