@@ -1,37 +1,54 @@
 <template>
     <div>
         <div v-if="$mq === 'sm'">
-            TBD - Mobile Card view
+            <CardView v-for="(row, rowIndex) in rows"
+                      :row="row"
+                      :heads="heads"
+                      :groups="groups"
+                      :index="rowIndex"
+                      :key="rowIndex" />
         </div>
-        <table class="table" v-else>
-            <tbody>
-            <tr v-for="(head, index) in heads" :key="index">
-                <TableHead :text="head" />
-                <TableCell v-for="(row, rowIndex) in rows" :cell="row[index]" :key="rowIndex" />
-            </tr>
-            </tbody>
-        </table>
+        <TableView v-else
+                   :heads="heads"
+                   :rows="rows"
+                   :groups="groups" />
     </div>
 </template>
 
 <script>
-  import TableHead from './TableHead'
-  import TableCell from './TableCell'
+  import CardView from './CardView'
+  import TableView from './TableView'
 
   export default {
     name: 'EditTable',
     components: {
-      TableHead,
-      TableCell
+      TableView,
+      CardView
     },
     data () {
       return {
         heads: [
-          'Datum',
-          'Moderator',
-          'Musiker',
-          'Predigtlied'
+          {
+            content: 'Datum'
+          },
+          {
+            content: 'Moderator'
+          },
+          {
+            content: 'Musikverantwortlicher'
+          },
+          {
+            content: 'Musiker',
+            group: 1
+          },
+          {
+            content: 'Predigtlied',
+            group: 1
+          }
         ],
+        groups: {
+          1: 'Musik - Details'
+        },
         rows: [
           [
             {
@@ -40,6 +57,10 @@
             },
             {
               content: 'Manuel',
+              type: 'text'
+            },
+            {
+              content: 'Jonas',
               type: 'text'
             },
             {
@@ -61,12 +82,18 @@
               type: 'text'
             },
             {
+              content: 'Elli',
+              type: 'text'
+            },
+            {
               content: 'Elli\nFritz\nJohanna',
-              type: 'longtext'
+              type: 'longtext',
+              group: 1
             },
             {
               content: 'Freude wohnt in deinem Haus',
-              type: 'text'
+              type: 'text',
+              group: 1
             }
           ]
         ]
@@ -74,10 +101,3 @@
     }
   }
 </script>
-
-<style scoped>
-    .table {
-        border-collapse: collapse;
-        border-spacing: 0;
-    }
-</style>

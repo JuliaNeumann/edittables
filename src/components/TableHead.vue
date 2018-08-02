@@ -17,5 +17,6 @@
     .head {
         border: 1px solid grey;
         padding: 10px;
+        text-align: left;
     }
 </style>

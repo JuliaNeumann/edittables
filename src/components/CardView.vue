@@ -1,0 +1,52 @@
+<template>
+    <article class="card">
+        <h2 class="card__title"
+            @click="toggleShow">
+            {{ row[0].content | timestampToLocalString }}
+        </h2>
+        <TableView class="card__table"
+                   v-if="show"
+                   :rows="[row.slice(1)]"
+                   :heads="heads.slice(1)"
+                   :groups="groups" />
+    </article>
+</template>
+
+<script>
+  import TableView from './TableView'
+
+  export default {
+    name: 'CardView',
+    components: {
+      TableView
+    },
+    props: [
+      'row',
+      'heads',
+      'groups',
+      'index'
+    ],
+    data () {
+      return {
+        show: this.index === 0
+      }
+    },
+    methods: {
+      toggleShow: function () {
+        this.show = !this.show
+      }
+    }
+  }
+</script>
+
+<style scoped>
+    .card {
+        text-align: left;
+    }
+    .card__title {
+        cursor: pointer;
+    }
+    .card__table {
+        width: 100%;
+    }
+</style>
