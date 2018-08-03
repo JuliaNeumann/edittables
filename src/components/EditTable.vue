@@ -19,6 +19,7 @@
 <script>
   import CardView from './CardView'
   import TableView from './TableView'
+  import _debounce from 'lodash.debounce'
 
   export default {
     name: 'EditTable',
@@ -294,7 +295,7 @@
     },
     mounted () {
       this.setMobile()
-      window.addEventListener('resize', this.setMobile)
+      window.addEventListener('resize', _debounce(this.setMobile, 500))
     },
     methods: {
       setMobile: function () {

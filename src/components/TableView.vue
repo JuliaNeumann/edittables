@@ -36,6 +36,7 @@
   import TableCell from './TableCell'
   import TableGroupHeader from './TableGroupHeader'
   import Paginate from 'vuejs-paginate'
+  import _debounce from 'lodash.debounce'
 
   const COL_WIDTH = 305
   const HEAD_COL_WIDTH = 195
@@ -82,7 +83,7 @@
         this.activeGroups = JSON.parse(localStorage.getItem('activeGroups'))
       }
       this.calcColNum()
-      window.addEventListener('resize', this.calcColNum)
+      window.addEventListener('resize', _debounce(this.calcColNum, 500))
     },
     methods: {
       startGroup: function (headIndex) {
@@ -114,6 +115,11 @@
     .table {
         border-collapse: collapse;
         border-spacing: 0;
+        width: 100%;
+        border: 1px solid grey;
+    }
+    .row {
+        display: flex;
     }
     .row--group {
         background-color: #eee;

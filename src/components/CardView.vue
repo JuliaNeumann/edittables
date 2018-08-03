@@ -5,8 +5,7 @@
             <ArrowToggle :direction="show ? 'down': 'right'" class="arrow--big" />
             {{ row[0].content | timestampToLocalString }}
         </h2>
-        <TableView class="card__table"
-                   v-if="show"
+        <TableView v-if="show"
                    :paginate="false"
                    :rows="[row.slice(1)]"
                    :heads="heads.slice(1)"
@@ -49,8 +48,5 @@
     }
     .card__title {
         cursor: pointer;
-    }
-    .card__table {
-        width: 100%;
     }
 </style>
