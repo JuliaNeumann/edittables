@@ -1,6 +1,6 @@
 <template>
     <tr>
-        <td colspan="3" class="group-header">
+        <td :colspan="cols" class="group-header">
             <ArrowToggle :direction="this.open ? 'down' : 'right'"/>
             <strong>{{ text }}</strong>
         </td>
@@ -16,7 +16,8 @@
     },
     props: [
       'text',
-      'open'
+      'open',
+      'cols'
     ]
   }
 </script>

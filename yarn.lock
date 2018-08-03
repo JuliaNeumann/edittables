@@ -5887,6 +5887,10 @@ vuejs-datepicker@^0.9.24:
   version "0.9.29"
   resolved "https://registry.yarnpkg.com/vuejs-datepicker/-/vuejs-datepicker-0.9.29.tgz#b17e504a9ae699f590b2fbe07237d5309012083b"
 
+vuejs-paginate@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/vuejs-paginate/-/vuejs-paginate-2.0.1.tgz#373ed6d692dec4113d37aa9467f945da3a2bd9af"
+
 watchpack@^1.4.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.6.0.tgz#4bc12c2ebe8aa277a71f1d3f14d685c7b446cd00"

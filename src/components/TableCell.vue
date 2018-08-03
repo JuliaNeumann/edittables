@@ -4,18 +4,18 @@
              @click="startEdit"
              @focus="startEdit"
              v-if="!editMode && (cell.type === 'date')">
-            {{ content | timestampToLocalString }}
+            {{ cell.content | timestampToLocalString }}
         </div>
         <div class="cell__content"
              :class="`cell__content--${cell.type}`"
              @click="startEdit"
              @focus="startEdit"
              v-else-if="!editMode">
-            {{ content }}
+            {{ cell.content }}
         </div>
         <InputField @stopEditMode="stopEdit"
                     v-if="editMode"
-                    v-model="content"
+                    v-model="cell.content"
                     :type="cell.type"/>
     </td>
 </template>
@@ -33,8 +33,7 @@
     ],
     data: function () {
       return {
-        editMode: false,
-        content: this.cell.content
+        editMode: false
       }
     },
     methods: {

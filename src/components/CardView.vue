@@ -7,6 +7,7 @@
         </h2>
         <TableView class="card__table"
                    v-if="show"
+                   :paginate="false"
                    :rows="[row.slice(1)]"
                    :heads="heads.slice(1)"
                    :groups="groups" />

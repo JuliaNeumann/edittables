@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="$mq === 'sm'">
+        <div v-if="mobile">
             <CardView v-for="(row, rowIndex) in rows"
                       :row="row"
                       :heads="heads"
@@ -9,6 +9,7 @@
                       :key="rowIndex" />
         </div>
         <TableView v-else
+                   :paginate="true"
                    :heads="heads"
                    :rows="rows"
                    :groups="groups" />
@@ -85,7 +86,189 @@
               type: 'date'
             },
             {
-              content: 'Beni',
+              content: '3',
+              type: 'text'
+            },
+            {
+              content: 'Elli',
+              type: 'text'
+            },
+            {
+              content: 'Elli\nFritz\nJohanna',
+              type: 'longtext'
+            },
+            {
+              content: 'Freude wohnt in deinem Haus',
+              type: 'text'
+            },
+            {
+              content: '',
+              type: 'longtext'
+            }
+          ],
+          [
+            {
+              content: 1515884400000,
+              type: 'date'
+            },
+            {
+              content: '4',
+              type: 'text'
+            },
+            {
+              content: 'Elli',
+              type: 'text'
+            },
+            {
+              content: 'Elli\nFritz\nJohanna',
+              type: 'longtext'
+            },
+            {
+              content: 'Freude wohnt in deinem Haus',
+              type: 'text'
+            },
+            {
+              content: '',
+              type: 'longtext'
+            }
+          ],
+          [
+            {
+              content: 1515884400000,
+              type: 'date'
+            },
+            {
+              content: '5',
+              type: 'text'
+            },
+            {
+              content: 'Elli',
+              type: 'text'
+            },
+            {
+              content: 'Elli\nFritz\nJohanna',
+              type: 'longtext'
+            },
+            {
+              content: 'Freude wohnt in deinem Haus',
+              type: 'text'
+            },
+            {
+              content: '',
+              type: 'longtext'
+            }
+          ],
+          [
+            {
+              content: 1515884400000,
+              type: 'date'
+            },
+            {
+              content: '6',
+              type: 'text'
+            },
+            {
+              content: 'Elli',
+              type: 'text'
+            },
+            {
+              content: 'Elli\nFritz\nJohanna',
+              type: 'longtext'
+            },
+            {
+              content: 'Freude wohnt in deinem Haus',
+              type: 'text'
+            },
+            {
+              content: '',
+              type: 'longtext'
+            }
+          ],
+          [
+            {
+              content: 1515884400000,
+              type: 'date'
+            },
+            {
+              content: '7',
+              type: 'text'
+            },
+            {
+              content: 'Elli',
+              type: 'text'
+            },
+            {
+              content: 'Elli\nFritz\nJohanna',
+              type: 'longtext'
+            },
+            {
+              content: 'Freude wohnt in deinem Haus',
+              type: 'text'
+            },
+            {
+              content: '',
+              type: 'longtext'
+            }
+          ],
+          [
+            {
+              content: 1515884400000,
+              type: 'date'
+            },
+            {
+              content: '8',
+              type: 'text'
+            },
+            {
+              content: 'Elli',
+              type: 'text'
+            },
+            {
+              content: 'Elli\nFritz\nJohanna',
+              type: 'longtext'
+            },
+            {
+              content: 'Freude wohnt in deinem Haus',
+              type: 'text'
+            },
+            {
+              content: '',
+              type: 'longtext'
+            }
+          ],
+          [
+            {
+              content: 1515884400000,
+              type: 'date'
+            },
+            {
+              content: '9',
+              type: 'text'
+            },
+            {
+              content: 'Elli',
+              type: 'text'
+            },
+            {
+              content: 'Elli\nFritz\nJohanna',
+              type: 'longtext'
+            },
+            {
+              content: 'Freude wohnt in deinem Haus',
+              type: 'text'
+            },
+            {
+              content: '',
+              type: 'longtext'
+            }
+          ],
+          [
+            {
+              content: 1515884400000,
+              type: 'date'
+            },
+            {
+              content: '10',
               type: 'text'
             },
             {
@@ -105,7 +288,17 @@
               type: 'longtext'
             }
           ]
-        ]
+        ],
+        mobile: true
+      }
+    },
+    mounted () {
+      this.setMobile()
+      window.addEventListener('resize', this.setMobile)
+    },
+    methods: {
+      setMobile: function () {
+        this.mobile = this.$el.clientWidth < 480
       }
     }
   }
