@@ -20,14 +20,13 @@
             </template>
             </tbody>
         </table>
-        <paginate v-if="paginate"
-                  v-model="page"
-                  :page-count="pageNum"
-                  :prev-text="'Zurück'"
-                  :next-text="'Vor'"
-                  :container-class="'paginate'"
-                  :page-class="'paginate__page'"
-                  :next-class="'paginate__next'" />
+        <b-pagination v-if="paginate"
+                      :total="rows.length"
+                      :current.sync="page"
+                      :simple="false"
+                      :rounded="false"
+                      :per-page="rowsPerPage">
+        </b-pagination>
     </div>
 </template>
 
@@ -35,7 +34,6 @@
   import TableHead from './TableHead'
   import TableCell from './TableCell'
   import TableGroupHeader from './TableGroupHeader'
-  import Paginate from 'vuejs-paginate'
   import _debounce from 'lodash.debounce'
 
   const COL_WIDTH = 305
@@ -46,8 +44,7 @@
     components: {
       TableHead,
       TableCell,
-      TableGroupHeader,
-      Paginate
+      TableGroupHeader
     },
     props: [
       'heads',
@@ -59,7 +56,6 @@
       return {
         activeGroups: [],
         page: 1,
-        pageNum: 1,
         rowsPerPage: 2
       }
     },
@@ -102,10 +98,8 @@
         return !head.group || (this.activeGroups.indexOf(head.group) > -1)
       },
       calcColNum: function () {
-        const prevPageNum = this.pageNum
         this.rowsPerPage = Math.floor((this.$el.clientWidth - HEAD_COL_WIDTH) / COL_WIDTH)
         this.pageNum = Math.ceil(this.rows.length / this.rowsPerPage)
-        this.page = (prevPageNum === this.pageNum) ? this.page : 1
       }
     }
   }
@@ -127,28 +121,57 @@
 </style>
 
 <style>
-    .paginate {
+    .pagination {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .pagination-list {
+        order: 2;
         display: flex;
         flex-wrap: wrap;
-        margin-left: -20px;
         padding: 0;
         list-style: none;
-        float: right;
     }
-    .paginate__page,
-    .paginate__next {
+    .pagination-list li:not(:first-child) {
         flex: none;
         padding-left: 20px;
         position: relative;
+    }
+    .pagination-link {
+        text-decoration: none;
+        color: black;
     }
     .paginate .disabled a {
         color: grey;
         cursor: default;
         outline: none;
     }
-    .paginate .active a {
+    .pagination-link.is-current {
         font-weight: bold;
         cursor: default;
         outline: none;
+    }
+    .pagination-previous,
+    .pagination-next {
+        display: flex;
+        align-items: center;
+    }
+    .pagination-previous[disabled="disabled"],
+    .pagination-next[disabled="disabled"] {
+        color: gray;
+        cursor: default;
+    }
+    .pagination-previous .icon,
+    .pagination-next .icon {
+        height: 1.5rem;
+        width: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+    .pagination-previous {
+        order: 1;
+    }
+    .pagination-next {
+        order: 3;
     }
 </style>

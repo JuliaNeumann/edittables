@@ -2,6 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import Buefy from 'buefy'
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.config.productionTip = false
 
@@ -9,6 +11,8 @@ Vue.config.productionTip = false
 Vue.filter('timestampToLocalString', function (timestamp) {
   return new Date(timestamp).toLocaleDateString()
 })
+
+Vue.use(Buefy)
 
 /* eslint-disable no-new */
 new Vue({
