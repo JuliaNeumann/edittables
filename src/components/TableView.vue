@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="['table-view', rowsToShow.length < 2 ? 'table-view--small': '']">
         <table class="table">
             <tbody>
             <template v-for="(head, index) in heads">
@@ -106,6 +106,14 @@
 </script>
 
 <style scoped>
+    .table-view {
+        width: 100%;
+    }
+    @media only screen and (min-width:900px) {
+        .table-view--small {
+            width: 50%;
+        }
+    }
     .table {
         border-collapse: collapse;
         border-spacing: 0;
