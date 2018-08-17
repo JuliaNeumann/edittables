@@ -299,7 +299,7 @@
     },
     methods: {
       setMobile: function () {
-        this.mobile = this.$el.clientWidth < 480
+        this.mobile = this.$el.clientWidth < 825
       }
     }
   }
