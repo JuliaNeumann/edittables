@@ -1,5 +1,5 @@
 <template>
-    <input @blur="saveNewValue" @keydown.enter.tab="saveNewValue" ref="inputField" type="text" v-model="inputContent" />
+    <input class="input" @blur="saveNewValue" @keydown.enter.tab="saveNewValue" ref="inputField" type="text" v-model="inputContent" />
 </template>
 
 <script>
@@ -15,3 +15,11 @@
     mixins: [inputMixin]
   }
 </script>
+
+<style scoped>
+    .input {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+    }
+</style>

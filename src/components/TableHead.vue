@@ -17,8 +17,10 @@
     .head {
         width: 100px;
         word-break: break-all;
+        word-break: break-word;
         hyphens: auto;
-        border: 1px solid grey;
+        border-right: 1px solid grey;
+        border-bottom: 1px solid grey;
         padding: 10px;
         text-align: left;
     }

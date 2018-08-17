@@ -1,5 +1,5 @@
 <template>
-    <td class="cell">
+    <td class="cell" :style="inlineStyles">
         <div class="cell__content"
              @click="startEdit"
              @focus="startEdit"
@@ -33,15 +33,25 @@
     ],
     data: function () {
       return {
-        editMode: false
+        editMode: false,
+        currentHeight: false
+      }
+    },
+    computed: {
+      inlineStyles () {
+        return this.currentHeight ? {
+          height: `${this.currentHeight}px`
+        } : {}
       }
     },
     methods: {
       startEdit: function () {
+        this.currentHeight = this.$el.clientHeight
         this.editMode = true
       },
       stopEdit: function () {
         this.editMode = false
+        this.currentHeight = false
       }
     }
   }
@@ -50,7 +60,10 @@
 <style scoped>
     .cell {
         flex: 1;
-        border: 1px solid grey;
+        border-bottom: 1px solid grey;
+    }
+    .cell:not(:last-child) {
+        border-right: 1px solid gray;
     }
     .cell__content {
         padding: 10px;

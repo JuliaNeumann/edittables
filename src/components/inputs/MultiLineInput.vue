@@ -1,5 +1,5 @@
 <template>
-    <textarea @blur="saveNewValue" @keydown.tab="saveNewValue" ref="inputField" v-model="inputContent"></textarea>
+    <textarea class="textarea" @blur="saveNewValue" @keydown.tab="saveNewValue" ref="inputField" v-model="inputContent"></textarea>
 </template>
 
 <script>
@@ -15,3 +15,11 @@
     mixins: [inputMixin]
   }
 </script>
+
+<style scoped>
+    .textarea {
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+    }
+</style>

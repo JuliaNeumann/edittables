@@ -106,6 +106,10 @@
 </script>
 
 <style scoped>
+    .table-view,
+    .table-view * {
+        box-sizing: border-box;
+    }
     .table-view {
         width: 100%;
     }
@@ -117,8 +121,10 @@
     .table {
         border-collapse: collapse;
         border-spacing: 0;
-        width: 100%;
+        display: flex;
+        flex-direction: column;
         border: 1px solid grey;
+        border-bottom: none;
     }
     .row {
         display: flex;

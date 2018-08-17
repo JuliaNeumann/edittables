@@ -37,7 +37,7 @@
             content: 'Moderator'
           },
           {
-            content: 'Musikverantwortlicher'
+            content: 'Musik-Verantwortlicher'
           },
           {
             content: 'Musiker',
