@@ -13,19 +13,22 @@
                    :heads="heads"
                    :rows="rows"
                    :groups="groups" />
+        <AddButton/>
     </div>
 </template>
 
 <script>
   import CardView from './CardView'
   import TableView from './TableView'
+  import AddButton from './AddButton'
   import _debounce from 'lodash.debounce'
 
   export default {
     name: 'EditTable',
     components: {
       TableView,
-      CardView
+      CardView,
+      AddButton
     },
     data () {
       return {
