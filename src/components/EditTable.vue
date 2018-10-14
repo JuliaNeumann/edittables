@@ -13,7 +13,7 @@
                    :heads="heads"
                    :rows="rows"
                    :groups="groups" />
-        <AddButton/>
+        <AddButton @addDate="addRow"/>
     </div>
 </template>
 
@@ -303,6 +303,34 @@
     methods: {
       setMobile: function () {
         this.mobile = this.$el.clientWidth < 825
+      },
+      addRow: function (addDate) {
+        this.rows.push([
+          {
+            content: addDate,
+            type: 'date'
+          },
+          {
+            content: '',
+            type: 'text'
+          },
+          {
+            content: '',
+            type: 'text'
+          },
+          {
+            content: '',
+            type: 'longtext'
+          },
+          {
+            content: '',
+            type: 'text'
+          },
+          {
+            content: '',
+            type: 'longtext'
+          }
+        ])
       }
     }
   }
