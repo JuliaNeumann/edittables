@@ -1,5 +1,6 @@
 <template>
     <div>
+        <filters :heads="heads" />
         <div v-if="mobile">
             <CardView v-for="(row, rowIndex) in rows"
                       :row="row"
@@ -21,6 +22,7 @@
   import CardView from './CardView'
   import TableView from './TableView'
   import AddButton from './AddButton'
+  import Filters from './Filters'
   import _debounce from 'lodash.debounce'
 
   export default {
@@ -28,30 +30,37 @@
     components: {
       TableView,
       CardView,
-      AddButton
+      AddButton,
+      Filters
     },
     data () {
       return {
         heads: [
           {
-            content: 'Datum'
+            content: 'Datum',
+            active: true
           },
           {
-            content: 'Moderator'
+            content: 'Moderator',
+            active: true
           },
           {
-            content: 'Musik-Verantwortlicher'
+            content: 'Musik-Verantwortlicher',
+            active: true
           },
           {
             content: 'Musiker',
-            group: 1
+            group: 1,
+            active: true
           },
           {
             content: 'Predigtlied',
-            group: 1
+            group: 1,
+            active: true
           },
           {
-            content: 'Besonderheiten'
+            content: 'Besonderheiten',
+            active: true
           }
         ],
         groups: {

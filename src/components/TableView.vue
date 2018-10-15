@@ -2,7 +2,7 @@
     <div :class="['table-view', rowsToShow.length < 2 ? 'table-view--small': '']">
         <table class="table">
             <tbody>
-            <template v-for="(head, index) in heads">
+            <template v-for="(head, index) in heads" v-if="head.active">
                 <TableGroupHeader v-if="startGroup(index)"
                                   :text="groups[head.group]"
                                   :open="activeGroups.indexOf(head.group) > -1"
