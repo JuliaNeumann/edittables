@@ -4,15 +4,16 @@
             <tbody>
             <template v-for="(head, index) in heads" v-if="head.active">
                 <TableGroupHeader v-if="startGroup(index)"
-                                  :text="groups[head.group]"
-                                  :open="activeGroups.indexOf(head.group) > -1"
+                                  :text="groups[head.group_id]"
+                                  :open="activeGroups.indexOf(head.group_id) > -1"
                                   :cols="paginate ? rowsPerPage + 1 : 2"
-                                  @click.native="toggleGroup(head.group)"/>
+                                  :key="`group_head_${index}`"
+                                  @click.native="toggleGroup(head.group_id)"/>
                 <tr :key="index"
                     v-if="showRow(head)"
                     class="row"
-                    :class="head.group ? 'row--group' : ''">
-                    <TableHead :text="head.content" />
+                    :class="head.group_id ? 'row--group' : ''">
+                    <TableHead :text="head.name" />
                     <TableCell v-for="(row, rowIndex) in rowsToShow"
                                :cell="row[index]"
                                :key="rowIndex" />
@@ -83,8 +84,8 @@
     },
     methods: {
       startGroup: function (headIndex) {
-        return this.heads[headIndex].group &&                       // current head belongs to a group and ...
-          (headIndex === 0 || !this.heads[headIndex - 1].group)     // ... is the first head or the head before it does not belong to a group
+        return this.heads[headIndex].group_id &&                       // current head belongs to a group and ...
+          (headIndex === 0 || !this.heads[headIndex - 1].group_id)     // ... is the first head or the head before it does not belong to a group
       },
       toggleGroup: function (groupID) {
         const index = this.activeGroups.indexOf(groupID)
@@ -95,7 +96,7 @@
         this.activeGroups.splice(index, 1)
       },
       showRow: function (head) {
-        return !head.group || (this.activeGroups.indexOf(head.group) > -1)
+        return !head.group_id || (this.activeGroups.indexOf(head.group_id) > -1)
       },
       calcColNum: function () {
         this.rowsPerPage = Math.floor((this.$el.clientWidth - HEAD_COL_WIDTH) / COL_WIDTH)

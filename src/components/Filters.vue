@@ -10,7 +10,7 @@
                        :id="`filter_${index}`"
                        v-model="head.active" />
                 <label :for="`filter_${index}`">
-                    {{ head.content }}
+                    {{ head.name }}
                 </label>
             </li>
         </ul>

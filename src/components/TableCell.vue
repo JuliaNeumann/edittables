@@ -28,9 +28,17 @@
     components: {
       InputField
     },
-    props: [
-      'cell'
-    ],
+    props: {
+      cell: {
+        default: () => {
+          return {
+            content: '',
+            type: 'text'
+          }
+        }
+        // TODO: validate: type, type matches content?
+      }
+    },
     data: function () {
       return {
         editMode: false,

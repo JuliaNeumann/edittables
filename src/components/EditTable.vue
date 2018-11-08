@@ -24,6 +24,7 @@
   import AddButton from './AddButton'
   import Filters from './Filters'
   import _debounce from 'lodash.debounce'
+  import {getHeaders, getGroups} from '../services/api'
 
   export default {
     name: 'EditTable',
@@ -35,37 +36,8 @@
     },
     data () {
       return {
-        heads: [
-          {
-            content: 'Datum',
-            active: true
-          },
-          {
-            content: 'Moderator',
-            active: true
-          },
-          {
-            content: 'Musik-Verantwortlicher',
-            active: true
-          },
-          {
-            content: 'Musiker',
-            group: 1,
-            active: true
-          },
-          {
-            content: 'Predigtlied',
-            group: 1,
-            active: true
-          },
-          {
-            content: 'Besonderheiten',
-            active: true
-          }
-        ],
-        groups: {
-          1: 'Musik - Details'
-        },
+        heads: [],
+        groups: {},
         rows: [
           [
             {
@@ -305,9 +277,12 @@
         mobile: true
       }
     },
-    mounted () {
+    async mounted () {
       this.setMobile()
       window.addEventListener('resize', _debounce(this.setMobile, 500))
+      this.heads = await getHeaders()
+      this.groups = await getGroups()
+      console.log(this.groups)
     },
     methods: {
       setMobile: function () {
