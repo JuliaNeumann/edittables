@@ -23,3 +23,10 @@ export async function getRows () {
   const response = await axios.get(`${baseUrl}events`)
   return response.data
 }
+
+export async function addEvent (newDate) {
+  if (newDate) {
+    const response = await axios.post(`${baseUrl}add-event`, {date: newDate})
+    return response.data
+  }
+}

@@ -24,7 +24,7 @@
   import AddButton from './AddButton'
   import Filters from './Filters'
   import _debounce from 'lodash.debounce'
-  import {getHeaders, getGroups, getRows} from '../services/api'
+  import {getHeaders, getGroups, getRows, addEvent} from '../services/api'
 
   export default {
     name: 'EditTable',
@@ -53,33 +53,17 @@
       setMobile: function () {
         this.mobile = this.$el.clientWidth < 825
       },
-      addRow: function (addDate) {
-        this.rows.push([
-          {
-            content: addDate,
-            type: 'date'
-          },
-          {
-            content: '',
-            type: 'text'
-          },
-          {
-            content: '',
-            type: 'text'
-          },
-          {
-            content: '',
-            type: 'longtext'
-          },
-          {
-            content: '',
-            type: 'text'
-          },
-          {
-            content: '',
-            type: 'longtext'
-          }
-        ])
+      addRow: async function (addDate) {
+        const apiResult = await addEvent(addDate)
+        if (apiResult && apiResult.success) {
+          this.rows = await getRows()
+          return
+        }
+        if (apiResult && apiResult.error) {
+          alert(`Beim Hinzufügen ist ein Fehler aufgetreten: ${apiResult.error}`)
+          return
+        }
+        alert('Beim Hinzufügen ist ein unbekannter Fehler aufgetreten')
       }
     }
   }
