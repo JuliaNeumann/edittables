@@ -3,20 +3,20 @@
         <div class="cell__content"
              @click="startEdit"
              @focus="startEdit"
-             v-if="!editMode && (cell.type === 'date')">
-            {{ cell.content | timestampToLocalString }}
+             v-if="!editMode && (type === 'date')">
+            {{ content | timestampToLocalString }}
         </div>
         <div class="cell__content"
-             :class="`cell__content--${cell.type}`"
+             :class="`cell__content--${type}`"
              @click="startEdit"
              @focus="startEdit"
              v-else-if="!editMode">
-            {{ cell.content }}
+            {{ content }}
         </div>
         <InputField @stopEditMode="stopEdit"
                     v-if="editMode"
-                    v-model="cell.content"
-                    :type="cell.type"/>
+                    v-model="content"
+                    :type="type"/>
     </td>
 </template>
 
@@ -29,14 +29,11 @@
       InputField
     },
     props: {
-      cell: {
-        default: () => {
-          return {
-            content: '',
-            type: 'text'
-          }
-        }
-        // TODO: validate: type, type matches content?
+      content: {
+        default: ''
+      },
+      type: {
+        default: 'text'
       }
     },
     data: function () {

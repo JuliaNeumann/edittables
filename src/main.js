@@ -9,7 +9,7 @@ Vue.config.productionTip = false
 
 // custom filters
 Vue.filter('timestampToLocalString', function (timestamp) {
-  return new Date(timestamp).toLocaleDateString()
+  return timestamp ? new Date(timestamp).toLocaleDateString() : ''
 })
 
 Vue.use(Buefy)

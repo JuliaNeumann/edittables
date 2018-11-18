@@ -3,11 +3,11 @@
         <h2 class="card__title"
             @click="toggleShow">
             <ArrowToggle :direction="show ? 'down': 'right'" class="arrow--big" />
-            {{ row[0].content | timestampToLocalString }}
+            {{ row.fields[1] | timestampToLocalString }}
         </h2>
         <TableView v-if="show"
                    :paginate="false"
-                   :rows="[row.slice(1)]"
+                   :rows="[row]"
                    :heads="heads.slice(1)"
                    :groups="groups" />
     </article>

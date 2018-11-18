@@ -18,3 +18,8 @@ export async function getGroups () {
   })
   return groups
 }
+
+export async function getRows () {
+  const response = await axios.get(`${baseUrl}events`)
+  return response.data
+}

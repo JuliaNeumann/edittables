@@ -1,5 +1,6 @@
 <template>
-    <div :class="['table-view', rowsToShow.length < 2 ? 'table-view--small': '']">
+    <div :class="tableViewClass"
+         class="table-view">
         <table class="table">
             <tbody>
             <template v-for="(head, index) in heads" v-if="head.active">
@@ -15,7 +16,8 @@
                     :class="head.group_id ? 'row--group' : ''">
                     <TableHead :text="head.name" />
                     <TableCell v-for="(row, rowIndex) in rowsToShow"
-                               :cell="row[index]"
+                               :type="head.type"
+                               :content="row.fields[head.id] || ''"
                                :key="rowIndex" />
                 </tr>
             </template>
@@ -68,6 +70,11 @@
           return this.rows.slice(startRow, endRow)
         }
         return this.rows
+      },
+      tableViewClass: function () {
+        return {
+          'table--view-small': this.rowsToShow.length < 2
+        }
       }
     },
     watch: {
@@ -100,7 +107,6 @@
       },
       calcColNum: function () {
         this.rowsPerPage = Math.floor((this.$el.clientWidth - HEAD_COL_WIDTH) / COL_WIDTH)
-        this.pageNum = Math.ceil(this.rows.length / this.rowsPerPage)
       }
     }
   }
