@@ -30,3 +30,11 @@ export async function addEvent (newDate) {
     return response.data
   }
 }
+
+export async function updateEvent (eventId, headerId, content) {
+  if (eventId && headerId && content) {
+    const response = await axios.post(`${baseUrl}update-event`,
+      {'event_id': eventId, 'header_id': headerId, content: content})
+    return response.data
+  }
+}

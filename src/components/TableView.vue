@@ -18,6 +18,8 @@
                     <TableCell v-for="(row, rowIndex) in rowsToShow"
                                :type="head.type"
                                :content="row.fields[head.id] || ''"
+                               :event-id="row.id"
+                               :header-id="head.id"
                                :key="rowIndex" />
                 </tr>
             </template>

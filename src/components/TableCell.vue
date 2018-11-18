@@ -4,24 +4,25 @@
              @click="startEdit"
              @focus="startEdit"
              v-if="!editMode && (type === 'date')">
-            {{ content | timestampToLocalString }}
+            {{ cellContent | timestampToLocalString }}
         </div>
         <div class="cell__content"
              :class="`cell__content--${type}`"
              @click="startEdit"
              @focus="startEdit"
              v-else-if="!editMode">
-            {{ content }}
+            {{ cellContent }}
         </div>
         <InputField @stopEditMode="stopEdit"
                     v-if="editMode"
-                    v-model="content"
+                    v-model="cellContent"
                     :type="type"/>
     </td>
 </template>
 
 <script>
   import InputField from './InputField'
+  import {updateEvent} from '../services/api'
 
   export default {
     name: 'TableCell',
@@ -34,12 +35,19 @@
       },
       type: {
         default: 'text'
+      },
+      eventId: {
+        required: true
+      },
+      headerId: {
+        required: true
       }
     },
     data: function () {
       return {
         editMode: false,
-        currentHeight: false
+        currentHeight: false,
+        cellContent: ''
       }
     },
     computed: {
@@ -54,10 +62,17 @@
         this.currentHeight = this.$el.clientHeight
         this.editMode = true
       },
-      stopEdit: function () {
+      stopEdit: async function () {
         this.editMode = false
         this.currentHeight = false
+        const apiResult = await updateEvent(this.eventId, this.headerId, this.cellContent)
+        if (apiResult && apiResult.error) {
+          alert(`Beim Bearbeiten ist ein Fehler aufgetreten: ${apiResult.error}`)
+        }
       }
+    },
+    created: function () {
+      this.cellContent = this.content
     }
   }
 </script>
