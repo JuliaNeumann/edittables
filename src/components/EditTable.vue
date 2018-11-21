@@ -48,6 +48,7 @@
       this.heads = await getHeaders()
       this.groups = await getGroups()
       this.rows = await getRows()
+      console.log(this.rows)
     },
     methods: {
       setMobile: function () {

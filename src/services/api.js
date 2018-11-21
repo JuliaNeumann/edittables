@@ -21,7 +21,18 @@ export async function getGroups () {
 
 export async function getRows () {
   const response = await axios.get(`${baseUrl}events`)
-  return response.data
+  const today = new Date()
+  const yesterday = new Date(today)
+  yesterday.setDate(today.getDate() - 2)
+  return response.data.filter(event => { // show only events starting from yesterday ...
+    return event.fields && event.fields[1] && (new Date(event.fields[1]) >= yesterday)
+  }).sort(function (event1, event2) { // ... and sort by date
+    console.log(new Date(event1.fields[1]))
+    if (new Date(event1.fields[1]) < new Date(event2.fields[1])) {
+      return -1
+    }
+    return (new Date(event1.fields[1]) > new Date(event2.fields[1])) ? 1 : 0
+  })
 }
 
 export async function addEvent (newDate) {

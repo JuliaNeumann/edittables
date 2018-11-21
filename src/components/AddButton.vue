@@ -4,7 +4,7 @@
         <b-modal :active.sync="showOverlay">
             <div class="add">
                 Bitte Datum auswählen:
-                <datepicker language="de" :inline="true" v-model="date" class="add__datepicker"></datepicker>
+                <datepicker language="de" :inline="true" v-model="date" :open-date="lastDate" class="add__datepicker"></datepicker>
                 <div class="add__date">
                     {{ formatDate }}
                 </div>
@@ -34,7 +34,8 @@
     data: function () {
       return {
         showOverlay: false,
-        date: ''
+        date: '',
+        lastDate: ''
       }
     },
     computed: {
@@ -48,10 +49,12 @@
     methods: {
       addDate () {
         this.$emit('addDate', this.date)
+        this.lastDate = this.date
         this.date = ''
       },
       addDateAndClose () {
         this.addDate()
+        this.date = ''
         this.showOverlay = false
       }
     }
