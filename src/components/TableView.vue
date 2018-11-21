@@ -20,7 +20,7 @@
                                :content="row.fields[head.id] || ''"
                                :event-id="row.id"
                                :header-id="head.id"
-                               :key="rowIndex" />
+                               :key="`row_${row.id}_${rowIndex}`" />
                 </tr>
             </template>
             </tbody>
@@ -154,6 +154,7 @@
         flex-wrap: wrap;
         padding: 0;
         list-style: none;
+        margin: 0;
     }
     .pagination-list li:not(:first-child) {
         flex: none;
@@ -190,6 +191,9 @@
         width: 1.5rem;
         display: flex;
         align-items: center;
+        position: static;
+        top: 0;
+        left: 0;
     }
     .pagination-previous {
         order: 1;
