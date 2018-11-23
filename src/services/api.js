@@ -27,7 +27,6 @@ export async function getRows () {
   return response.data.filter(event => { // show only events starting from yesterday ...
     return event.fields && event.fields[1] && (new Date(event.fields[1]) >= yesterday)
   }).sort(function (event1, event2) { // ... and sort by date
-    console.log(new Date(event1.fields[1]))
     if (new Date(event1.fields[1]) < new Date(event2.fields[1])) {
       return -1
     }
@@ -37,7 +36,8 @@ export async function getRows () {
 
 export async function addEvent (newDate) {
   if (newDate) {
-    const response = await axios.post(`${baseUrl}add-event`, {date: newDate})
+    const formattedDate = `${newDate.getUTCFullYear()}-${newDate.getUTCMonth() + 1}-${newDate.getUTCDate()}`
+    const response = await axios.post(`${baseUrl}add-event`, {date: formattedDate})
     return response.data
   }
 }
