@@ -14,7 +14,8 @@
                     v-if="showRow(head)"
                     class="row"
                     :class="head.group_id ? 'row--group' : ''">
-                    <TableHead :text="head.name" />
+                    <TableHead :text="head.name"
+                               :description="head.description"/>
                     <TableCell v-for="(row, rowIndex) in rowsToShow"
                                :type="head.type"
                                :content="row.fields[head.id] || ''"
@@ -42,7 +43,7 @@
   import _debounce from 'lodash.debounce'
 
   const COL_WIDTH = 305
-  const HEAD_COL_WIDTH = 195
+  const HEAD_COL_WIDTH = 197
 
   export default {
     name: 'TableView',

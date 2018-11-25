@@ -1,6 +1,9 @@
 <template>
     <th class="head">
         {{ text }}
+        <small v-if="description" class="head__tooltip">
+          {{ description }}
+        </small>
     </th>
 </template>
 
@@ -8,7 +11,8 @@
   export default {
     name: 'TableHead',
     props: [
-      'text'
+      'text',
+      'description'
     ]
   }
 </script>
@@ -27,7 +31,21 @@
 
     @media only screen and (min-width: 480px) {
         .head {
-            width: 173px;
+            width: 175px;
         }
+    }
+
+    .head__tooltip {
+        display: none;
+        position: absolute;
+        max-width: 250px;
+        background-color: lightgray;
+        border: 1px solid gray;
+        padding: 3px;
+        z-index: 1;
+    }
+
+    .head:hover .head__tooltip {
+        display:  block;
     }
 </style>
