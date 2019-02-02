@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const baseUrl = 'http://127.0.0.1:8000/wp-json/event-planner/v1/'
+const restRoot = window.eventPlannerApp ? window.eventPlannerApp.rest_url : 'http://127.0.0.1:8000/wp-json/'
+const baseUrl = restRoot + 'event-planner/v1/'
+axios.defaults.headers.common['X-WP-Nonce'] = window.eventPlannerApp ? window.eventPlannerApp.nonce : null
 
 export async function getHeaders () {
   const response = await axios.get(`${baseUrl}headers`)
