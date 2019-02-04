@@ -6,10 +6,19 @@ axios.defaults.headers.common['X-WP-Nonce'] = window.eventPlannerApp ? window.ev
 
 export async function getHeaders () {
   const response = await axios.get(`${baseUrl}headers`)
-  return response.data.map(head => {
-    head.active = true // TODO: sync with localStorage
-    return head
-  })
+  return response.data
+    .sort(function (head1, head2) {
+      const head1OrderId = parseInt(head1.order_id)
+      const head2OrderId = parseInt(head2.order_id)
+      if (head1OrderId < head2OrderId) {
+        return -1
+      }
+      return (head1OrderId > head2OrderId) ? 1 : 0
+    })
+    .map(head => {
+      head.active = true // TODO: sync with localStorage
+      return head
+    })
 }
 
 export async function getGroups () {
