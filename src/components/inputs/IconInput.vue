@@ -1,5 +1,6 @@
 <template>
-  <div v-click-outside="saveNewValue">
+  <div v-click-outside="saveNewValue"
+       class="options">
     <div v-for="option in options"
          class="option">
       <input type="checkbox" :value="option.icon" :id="option.icon" v-model="inputContent"/>
@@ -44,6 +45,12 @@
 </script>
 
 <style scoped>
+  .options {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    flex-wrap: wrap;
+  }
   .option {
     display: inline-block;
     padding-right: 15px;

@@ -65,7 +65,7 @@
     computed: {
       inlineStyles () {
         return this.currentHeight ? {
-          height: `${this.currentHeight}px`
+          height: this.type !== 'icons' ? `${this.currentHeight}px` : 'auto'
         } : {}
       },
       icons () {
