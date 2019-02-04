@@ -2,11 +2,13 @@
   import DateInput from './inputs/DateInput'
   import SingleLineInput from './inputs/SingleLineInput'
   import MultiLineInput from './inputs/MultiLineInput'
+  import IconInput from './inputs/IconInput'
 
   const mapTypeToComponent = {
     'date': DateInput,
     'text': SingleLineInput,
-    'longtext': MultiLineInput
+    'longtext': MultiLineInput,
+    'icons': IconInput
   }
 
   export default {
@@ -18,13 +20,15 @@
     name: 'InputField',
     props: [
       'value',
-      'type'
+      'type',
+      'additional'
     ],
     render: function (h) {
       const self = this
       return h(mapTypeToComponent[this.type], {
         props: {
-          value: this.value
+          value: this.value,
+          additional: this.additional
         },
         on: {
           input: function (payload) {

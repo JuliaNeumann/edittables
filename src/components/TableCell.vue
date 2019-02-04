@@ -11,12 +11,21 @@
              @click="startEdit"
              @focus="startEdit"
              v-else-if="!editMode">
-            {{ cellContent }}
+            <template v-if="type === 'icons'">
+              <i v-for="icon in icons"
+                 class="fa fa-fw"
+                 :class="`fa-${icon}`">
+              </i>
+            </template>
+            <template v-else>
+              {{ cellContent }}
+            </template>
         </div>
         <InputField @stopEditMode="stopEdit"
                     v-if="editMode"
                     v-model="cellContent"
-                    :type="type"/>
+                    :type="type"
+                    :additional="additional"/>
     </td>
 </template>
 
@@ -35,6 +44,9 @@
       },
       type: {
         default: 'text'
+      },
+      additional: {
+        default: ''
       },
       eventId: {
         required: true
@@ -55,6 +67,9 @@
         return this.currentHeight ? {
           height: `${this.currentHeight}px`
         } : {}
+      },
+      icons () {
+        return this.cellContent ? JSON.parse(this.cellContent) : []
       }
     },
     methods: {
@@ -92,5 +107,8 @@
     .cell__content--longtext {
         white-space: pre-line;
         margin-top: -10px;
+    }
+    .fa-fw {
+      margin-right: 5px;
     }
 </style>

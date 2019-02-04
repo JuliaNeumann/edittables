@@ -18,6 +18,7 @@
                                :description="head.description"/>
                     <TableCell v-for="(row, rowIndex) in rowsToShow"
                                :type="head.type"
+                               :additional="head.additional"
                                :content="row.fields[head.id] || ''"
                                :event-id="row.id"
                                :header-id="head.id"
