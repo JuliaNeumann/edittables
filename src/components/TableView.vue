@@ -10,10 +10,10 @@
                                   :cols="paginate ? rowsPerPage + 1 : 2"
                                   :key="`group_head_${index}`"
                                   @click.native="toggleGroup(head.group_id)"/>
-                <tr :key="index"
+                <tr :key="head.id"
                     v-if="showRow(head)"
                     class="row"
-                    :class="head.group_id ? 'row--group' : ''">
+                    :class="rowClass(head)">
                     <TableHead :text="head.name"
                                :description="head.description"/>
                     <TableCell v-for="(row, rowIndex) in rowsToShow"
@@ -108,6 +108,12 @@
       showRow: function (head) {
         return !head.group_id || (this.activeGroups.indexOf(head.group_id) > -1)
       },
+      rowClass: function (head) {
+        return {
+          'row--group': head.group_id,
+          'row--highlight': head.id === '1'
+        }
+      },
       calcColNum: function () {
         this.rowsPerPage = Math.floor((this.$el.clientWidth - HEAD_COL_WIDTH) / COL_WIDTH)
       }
@@ -141,6 +147,9 @@
     }
     .row--group {
         background-color: #eee;
+    }
+    .row--highlight {
+      font-weight: bold;
     }
 </style>
 
