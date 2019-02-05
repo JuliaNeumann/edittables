@@ -23,7 +23,7 @@
   import TableView from './TableView'
   import AddButton from './AddButton'
   import Filters from './Filters'
-  import _debounce from 'lodash.debounce'
+  import {responsiveMixin} from './mixins/responsive'
   import {getHeaders, getGroups, getRows, addEvent} from '../services/api'
 
   export default {
@@ -34,25 +34,20 @@
       AddButton,
       Filters
     },
+    mixins: [responsiveMixin],
     data () {
       return {
         heads: [],
         groups: {},
-        rows: [],
-        mobile: true
+        rows: []
       }
     },
     async mounted () {
-      this.setMobile()
-      window.addEventListener('resize', _debounce(this.setMobile, 500))
       this.heads = await getHeaders()
       this.groups = await getGroups()
       this.rows = await getRows()
     },
     methods: {
-      setMobile: function () {
-        this.mobile = this.$el.clientWidth < 825
-      },
       addRow: async function (addDate) {
         const apiResult = await addEvent(addDate)
         if (apiResult && apiResult.success) {

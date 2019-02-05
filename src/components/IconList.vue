@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="icon-list">
     <i v-for="icon in cleanIcons"
        class="fa fa-fw"
        :class="`fa-${icon}`"
@@ -36,6 +36,9 @@
 </script>
 
 <style scoped>
+  .icon-list {
+    display: inline-block;
+  }
   .fa-fw {
     margin-right: 5px;
   }
