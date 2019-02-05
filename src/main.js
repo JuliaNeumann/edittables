@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import AppStatic from './AppStatic'
 import Buefy from 'buefy'
 import '@mdi/font/css/materialdesignicons.css'
 
@@ -16,7 +17,14 @@ Vue.use(Buefy)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el: '#epp_app',
   template: '<App/>',
   components: { App }
+})
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#epp_app_static',
+  template: '<AppStatic/>',
+  components: { AppStatic }
 })

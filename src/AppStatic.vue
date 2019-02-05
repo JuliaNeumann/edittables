@@ -1,6 +1,6 @@
 <template>
-  <div id="epp_app">
-    <EditTable/>
+  <div id="epp_app_static">
+    Static View here
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-#epp_app {
+#epp_app_static {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
