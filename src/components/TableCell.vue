@@ -1,59 +1,37 @@
 <template>
     <td class="cell" :style="inlineStyles">
         <div class="cell__content"
+             :class="`cell__content--${head.type}`"
              @click="startEdit"
              @focus="startEdit"
-             v-if="!editMode && (type === 'date')">
-            {{ cellContent | timestampToLocalString }}
-        </div>
-        <div class="cell__content"
-             :class="`cell__content--${type}`"
-             @click="startEdit"
-             @focus="startEdit"
-             v-else-if="!editMode">
-            <template v-if="type === 'icons'">
-              <IconList :additional="additional" :icons="cellContent"/>
-            </template>
-            <template v-else>
-              {{ cellContent }}
-            </template>
+             v-if="!editMode">
+             <CellContent :head="head" :content="cellContent" />
         </div>
         <InputField @stopEditMode="stopEdit"
-                    v-if="editMode"
+                    v-else
                     v-model="cellContent"
-                    :type="type"
-                    :additional="additional"/>
+                    :type="head.type"
+                    :additional="head.additional"/>
     </td>
 </template>
 
 <script>
   import InputField from './InputField'
   import IconList from './IconList'
+  import CellContent from './CellContent'
   import {updateEvent} from '../services/api'
 
   export default {
     name: 'TableCell',
     components: {
       InputField,
-      IconList
+      IconList,
+      CellContent
     },
-    props: {
-      content: {
-        default: ''
-      },
-      type: {
-        default: 'text'
-      },
-      additional: {
-        default: ''
-      },
-      eventId: {
-        required: true
-      },
-      headerId: {
-        required: true
-      }
-    },
+    props: [
+      'head',
+      'row'
+    ],
     data: function () {
       return {
         editMode: false,
@@ -64,7 +42,7 @@
     computed: {
       inlineStyles () {
         return this.currentHeight ? {
-          height: this.type !== 'icons' ? `${this.currentHeight}px` : 'auto'
+          height: this.head.type !== 'icons' ? `${this.currentHeight}px` : 'auto'
         } : {}
       }
     },
@@ -76,14 +54,14 @@
       stopEdit: async function () {
         this.editMode = false
         this.currentHeight = false
-        const apiResult = await updateEvent(this.eventId, this.headerId, this.cellContent)
+        const apiResult = await updateEvent(this.row.id, this.head.id, this.cellContent)
         if (apiResult && apiResult.error) {
           alert(`Beim Bearbeiten ist ein Fehler aufgetreten: ${apiResult.error}`)
         }
       }
     },
     created: function () {
-      this.cellContent = this.content
+      this.cellContent = this.row.fields[this.head.id]
     }
   }
 </script>

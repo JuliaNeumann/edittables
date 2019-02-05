@@ -9,29 +9,13 @@
           </tr>
           <tr v-for="row in rows">
             <td class="cell">
-              <template v-if="heads[0].type === 'date'">
-                {{ row.fields[heads[0].id] | timestampToLocalString }}
-              </template>
-              <template v-else-if="heads[0].type === 'icons'">
-                <IconList :additional="heads[0].additional" :icons="row.fields[heads[0].id]"/>
-              </template>
-              <template v-else>
-                {{ row.fields[heads[0].id] }}
-              </template>
+              <CellContent :head="heads[0]" :content="row.fields[heads[0].id]"/>
             </td>
             <td class="cell">
               <ul>
                 <li v-for="head in heads.slice(1)">
                   <strong> {{ head.name }}: </strong>
-                  <template v-if="head.type === 'date'">
-                    {{ row.fields[head.id] | timestampToLocalString }}
-                  </template>
-                  <template v-else-if="head.type === 'icons'">
-                    <IconList :additional="head.additional" :icons="row.fields[head.id]"/>
-                  </template>
-                  <template v-else>
-                    {{ row.fields[head.id] }}
-                  </template>
+                  <CellContent :head="head" :content="row.fields[head.id]"/>
                 </li>
               </ul>
             </td>
@@ -43,15 +27,7 @@
           </tr>
           <tr v-for="row in rows">
             <td v-for="head in heads" class="cell">
-              <template v-if="head.type === 'date'">
-                {{ row.fields[head.id] | timestampToLocalString }}
-              </template>
-              <template v-else-if="head.type === 'icons'">
-                <IconList :additional="head.additional" :icons="row.fields[head.id]"/>
-              </template>
-              <template v-else>
-                {{ row.fields[head.id] }}
-              </template>
+              <CellContent :head="head" :content="row.fields[head.id]"/>
             </td>
           </tr>
         </template>
@@ -61,14 +37,14 @@
 </template>
 
 <script>
-  import IconList from './IconList'
+  import CellContent from './CellContent'
   import {responsiveMixin} from './mixins/responsive'
   import {getHeaders, getConfig, getRows} from '../services/api'
 
   export default {
     name: 'StaticTable',
     components: {
-      IconList
+      CellContent
     },
     mixins: [responsiveMixin],
     data () {
