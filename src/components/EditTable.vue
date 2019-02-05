@@ -1,6 +1,6 @@
 <template>
     <div>
-        <filters :heads="heads" />
+        <filters :heads="heads" v-model="activeHeads"/>
         <div v-if="mobile">
             <CardView v-for="(row, rowIndex) in rows"
                       :row="row"
@@ -39,13 +39,31 @@
       return {
         heads: [],
         groups: {},
-        rows: []
+        rows: [],
+        activeHeads: []
+      }
+    },
+    watch: {
+      activeHeads: function () {
+        localStorage.setItem('activeHeads', JSON.stringify(this.activeHeads))
+        this.heads.forEach((head, index) => {
+          head.active = this.activeHeads[index]
+        })
       }
     },
     async mounted () {
       this.heads = await getHeaders()
       this.groups = await getGroups()
       this.rows = await getRows()
+      if (localStorage.getItem('activeHeads')) {
+        const cachedActiveHeads = JSON.parse(localStorage.getItem('activeHeads'))
+        if (cachedActiveHeads.length === this.heads.length) {
+          this.activeHeads = cachedActiveHeads
+        }
+      }
+      if (this.activeHeads.length !== this.heads.length) { // that is, not used the ones from cache because not set or not fitting
+        this.activeHeads = this.heads.map(() => true)
+      }
     },
     methods: {
       addRow: async function (addDate) {

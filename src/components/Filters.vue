@@ -8,7 +8,7 @@
                 <input type="checkbox"
                        name="filter"
                        :id="`filter_${index}`"
-                       v-model="head.active" />
+                       v-model="actives[index]" />
                 <label :for="`filter_${index}`">
                     {{ head.name }}
                 </label>
@@ -24,7 +24,27 @@ export default {
     heads: {
       type: Array,
       required: true
+    },
+    value: {
+      type: Array,
+      required: true
     }
+  },
+  data () {
+    return {
+      actives: []
+    }
+  },
+  watch: {
+    actives: function () {
+      this.$emit('input', this.actives)
+    },
+    value: function () {
+      this.actives = this.value
+    }
+  },
+  mounted () {
+    this.actives = this.value
   }
 }
 </script>
