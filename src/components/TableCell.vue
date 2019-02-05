@@ -12,10 +12,7 @@
              @focus="startEdit"
              v-else-if="!editMode">
             <template v-if="type === 'icons'">
-              <i v-for="icon in icons"
-                 class="fa fa-fw"
-                 :class="`fa-${icon}`">
-              </i>
+              <IconList :additional="additional" :icons="cellContent"/>
             </template>
             <template v-else>
               {{ cellContent }}
@@ -31,12 +28,14 @@
 
 <script>
   import InputField from './InputField'
+  import IconList from './IconList'
   import {updateEvent} from '../services/api'
 
   export default {
     name: 'TableCell',
     components: {
-      InputField
+      InputField,
+      IconList
     },
     props: {
       content: {
@@ -67,9 +66,6 @@
         return this.currentHeight ? {
           height: this.type !== 'icons' ? `${this.currentHeight}px` : 'auto'
         } : {}
-      },
-      icons () {
-        return this.cellContent ? JSON.parse(this.cellContent) : []
       }
     },
     methods: {
@@ -107,8 +103,5 @@
     .cell__content--longtext {
         white-space: pre-line;
         margin-top: -10px;
-    }
-    .fa-fw {
-      margin-right: 5px;
     }
 </style>

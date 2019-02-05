@@ -10,10 +10,7 @@
             {{ row.fields[head.id] | timestampToLocalString }}
           </template>
           <template v-else-if="head.type === 'icons'">
-            <i v-for="icon in JSON.parse(row.fields[head.id])"
-               class="fa fa-fw"
-               :class="`fa-${icon}`">
-            </i>
+            <IconList :additional="head.additional" :icons="row.fields[head.id]"/>
           </template>
           <template v-else>
             {{ row.fields[head.id] }}
@@ -26,9 +23,13 @@
 
 <script>
   import {getHeaders, getConfig, getRows} from '../services/api'
+  import IconList from './IconList'
 
   export default {
     name: 'StaticTable',
+    components: {
+      IconList
+    },
     data () {
       return {
         heads: [],
