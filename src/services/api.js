@@ -60,3 +60,12 @@ export async function updateEvent (eventId, headerId, content) {
     return response.data
   }
 }
+
+export async function getConfig () {
+  const response = await axios.get(`${baseUrl}config`)
+  const config = {}
+  response.data.forEach(configEntry => {
+    config[configEntry.name] = JSON.parse(configEntry.data)
+  })
+  return config
+}

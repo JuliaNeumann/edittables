@@ -1,16 +1,16 @@
 <template>
   <div id="epp_app_static">
-    Static View here
+    <StaticTable/>
   </div>
 </template>
 
 <script>
-import EditTable from './components/EditTable'
+import StaticTable from './components/StaticTable'
 
 export default {
   name: 'app',
   components: {
-    EditTable
+    StaticTable
   }
 }
 </script>
