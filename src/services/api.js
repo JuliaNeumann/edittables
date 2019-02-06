@@ -47,7 +47,9 @@ export async function getRows () {
 
 export async function addEvent (newDate) {
   if (newDate) {
-    const formattedDate = `${newDate.getUTCFullYear()}-${newDate.getUTCMonth() + 1}-${newDate.getUTCDate()}`
+    const month = ('0' + (newDate.getUTCMonth() + 1)).slice(-2)
+    const day = ('0' + newDate.getUTCDate()).slice(-2)
+    const formattedDate = `${newDate.getUTCFullYear()}-${month}-${day}`
     const response = await axios.post(`${baseUrl}add-event`, {date: formattedDate})
     return response.data
   }
@@ -65,7 +67,13 @@ export async function getConfig () {
   const response = await axios.get(`${baseUrl}config`)
   const config = {}
   response.data.forEach(configEntry => {
-    config[configEntry.name] = JSON.parse(configEntry.data)
+    if (configEntry.data) {
+      try {
+        config[configEntry.name] = JSON.parse(configEntry.data)
+      } catch (e) {
+        config[configEntry.name] = configEntry.data
+      }
+    }
   })
   return config
 }
