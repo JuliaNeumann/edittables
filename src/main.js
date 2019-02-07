@@ -15,16 +15,20 @@ Vue.filter('timestampToLocalString', function (timestamp) {
 
 Vue.use(Buefy)
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#epp_app',
-  template: '<App/>',
-  components: { App }
-})
+if (document.getElementById('epp_app')) {
+  /* eslint-disable no-new */
+  new Vue({
+    el: '#epp_app',
+    template: '<App/>',
+    components: { App }
+  })
+}
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#epp_app_static',
-  template: '<AppStatic/>',
-  components: { AppStatic }
-})
+if (document.getElementById('epp_app_static')) {
+  /* eslint-disable no-new */
+  new Vue({
+    el: '#epp_app_static',
+    template: '<AppStatic/>',
+    components: {AppStatic}
+  })
+}
