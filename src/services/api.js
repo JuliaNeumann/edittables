@@ -30,13 +30,16 @@ export async function getGroups () {
   return groups
 }
 
-export async function getRows () {
+export async function getRowsForEdit () {
   const response = await axios.get(`${baseUrl}events`)
   const today = new Date()
   const yesterday = new Date(today)
   yesterday.setDate(today.getDate() - 2)
-  return response.data.filter(event => { // show only events starting from yesterday ...
-    return event.fields && event.fields[1] && (new Date(event.fields[1]) >= yesterday)
+  const endDate = new Date(today)
+  endDate.setDate(today.getDate() + 130)
+  return response.data.filter(event => { // show only events starting from yesterday until 4 months in the future ...
+    return event.fields && event.fields[1] &&
+      (new Date(event.fields[1]) >= yesterday) && (new Date(event.fields[1]) <= endDate)
   }).sort(function (event1, event2) { // ... and sort by date
     if (new Date(event1.fields[1]) < new Date(event2.fields[1])) {
       return -1
