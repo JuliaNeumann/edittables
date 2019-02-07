@@ -45,6 +45,19 @@ export async function getRows () {
   })
 }
 
+export async function getRowsForCurrentYear () {
+  const response = await axios.get(`${baseUrl}events`)
+  const currentYear = (new Date()).getFullYear()
+  return response.data.filter(event => { // show only events starting from yesterday ...
+    return event.fields && event.fields[1] && (new Date(event.fields[1]).getFullYear() === currentYear)
+  }).sort(function (event1, event2) { // ... and sort by date
+    if (new Date(event1.fields[1]) < new Date(event2.fields[1])) {
+      return -1
+    }
+    return (new Date(event1.fields[1]) > new Date(event2.fields[1])) ? 1 : 0
+  })
+}
+
 export async function addEvent (newDate) {
   if (newDate) {
     const month = ('0' + (newDate.getUTCMonth() + 1)).slice(-2)
