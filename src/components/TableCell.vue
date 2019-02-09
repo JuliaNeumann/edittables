@@ -1,9 +1,10 @@
 <template>
-    <td class="cell" :style="inlineStyles">
+    <td class="cell"
+        :style="inlineStyles"
+        @click="startEdit"
+        @focus="startEdit">
         <div class="cell__content"
              :class="`cell__content--${head.type}`"
-             @click="startEdit"
-             @focus="startEdit"
              v-if="!editMode">
              <CellContent :head="head" :content="cellContent" />
         </div>
@@ -48,8 +49,10 @@
     },
     methods: {
       startEdit: function () {
-        this.currentHeight = this.$el.clientHeight
-        this.editMode = true
+        if (!this.editMode) {
+          this.currentHeight = this.$el.clientHeight
+          this.editMode = true
+        }
       },
       stopEdit: async function () {
         this.editMode = false
@@ -80,6 +83,6 @@
     }
     .cell__content--longtext {
         white-space: pre-line;
-        margin-top: -10px;
+        margin-top: -20px;
     }
 </style>
