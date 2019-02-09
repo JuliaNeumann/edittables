@@ -63,20 +63,30 @@ export async function getRowsForCurrentYear () {
 
 export async function addEvent (newDate) {
   if (newDate) {
-    const month = ('0' + (newDate.getUTCMonth() + 1)).slice(-2)
-    const day = ('0' + newDate.getUTCDate()).slice(-2)
-    const formattedDate = `${newDate.getUTCFullYear()}-${month}-${day}`
+    const formattedDate = formatDate(newDate)
     const response = await axios.post(`${baseUrl}add-event`, {date: formattedDate})
     return response.data
   }
 }
 
-export async function updateEvent (eventId, headerId, content) {
+export async function updateEvent (eventId, headerId, content, type) {
   if (eventId && headerId && content) {
+    if (type === 'date') {
+      content = formatDate(content)
+    }
     const response = await axios.post(`${baseUrl}update-event`,
       {'event_id': eventId, 'header_id': headerId, content: content})
     return response.data
   }
+}
+
+function formatDate (date) {
+  if (typeof date.getTime !== 'function') {
+    date = new Date(date)
+  }
+  const month = ('0' + (date.getUTCMonth() + 1)).slice(-2)
+  const day = ('0' + date.getUTCDate()).slice(-2)
+  return `${date.getUTCFullYear()}-${month}-${day}`
 }
 
 export async function getConfig () {

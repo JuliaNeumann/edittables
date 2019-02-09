@@ -57,7 +57,7 @@
       stopEdit: async function () {
         this.editMode = false
         this.currentHeight = false
-        const apiResult = await updateEvent(this.row.id, this.head.id, this.cellContent)
+        const apiResult = await updateEvent(this.row.id, this.head.id, this.cellContent, this.head.type)
         if (apiResult && apiResult.error) {
           alert(`Beim Bearbeiten ist ein Fehler aufgetreten: ${apiResult.error}`)
         }
