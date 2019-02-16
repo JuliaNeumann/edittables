@@ -39,7 +39,7 @@
 <script>
   import CellContent from './CellContent'
   import {responsiveMixin} from './mixins/responsive'
-  import {getHeaders, getConfig, getRowsForCurrentYear} from '../services/api'
+  import {getHeaders, getConfig, getRowsForCurrentYear, getData} from '../services/api'
 
   export default {
     name: 'StaticTable',
@@ -56,9 +56,10 @@
       }
     },
     async mounted () {
-      this.config = await getConfig()
-      this.heads = await getHeaders()
-      this.rows = await getRowsForCurrentYear()
+      const data = await getData()
+      this.config = getConfig(data)
+      this.heads = getHeaders(data)
+      this.rows = getRowsForCurrentYear(data)
 
       this.heads = this.heads.filter(head => {
         return this.config.static_fields.indexOf(parseInt(head.id)) > -1

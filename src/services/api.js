@@ -4,9 +4,13 @@ const restRoot = window.eventPlannerApp ? window.eventPlannerApp.rest_url : 'htt
 const baseUrl = restRoot + 'event-planner/v1/'
 axios.defaults.headers.common['X-WP-Nonce'] = window.eventPlannerApp ? window.eventPlannerApp.nonce : null
 
-export async function getHeaders () {
-  const response = await axios.get(`${baseUrl}headers`)
+export async function getData () {
+  const response = await axios.get(`${baseUrl}all`)
   return response.data
+}
+
+export function getHeaders (data) {
+  return data.headers
     .sort(function (head1, head2) {
       const head1OrderId = parseInt(head1.order_id)
       const head2OrderId = parseInt(head2.order_id)
@@ -21,23 +25,21 @@ export async function getHeaders () {
     })
 }
 
-export async function getGroups () {
-  const response = await axios.get(`${baseUrl}header-groups`)
+export function getGroups (data) {
   const groups = {}
-  response.data.forEach(group => {
+  data.header_groups.forEach(group => {
     groups[group.id] = group.name
   })
   return groups
 }
 
-export async function getRowsForEdit () {
-  const response = await axios.get(`${baseUrl}events`)
+export function getRowsForEdit (data) {
   const today = new Date()
   const yesterday = new Date(today)
   yesterday.setDate(today.getDate() - 2)
   const endDate = new Date(today)
   endDate.setDate(today.getDate() + 130)
-  return response.data.filter(event => { // show only events starting from yesterday until 4 months in the future ...
+  return data.events.filter(event => { // show only events starting from yesterday until 4 months in the future ...
     return event.fields && event.fields[1] &&
       (new Date(event.fields[1]) >= yesterday) && (new Date(event.fields[1]) <= endDate)
   }).sort(function (event1, event2) { // ... and sort by date
@@ -48,10 +50,9 @@ export async function getRowsForEdit () {
   })
 }
 
-export async function getRowsForCurrentYear () {
-  const response = await axios.get(`${baseUrl}events`)
+export function getRowsForCurrentYear (data) {
   const currentYear = (new Date()).getFullYear()
-  return response.data.filter(event => { // show only events starting from yesterday ...
+  return data.events.filter(event => { // show only events starting from yesterday ...
     return event.fields && event.fields[1] && (new Date(event.fields[1]).getFullYear() === currentYear)
   }).sort(function (event1, event2) { // ... and sort by date
     if (new Date(event1.fields[1]) < new Date(event2.fields[1])) {
@@ -89,10 +90,9 @@ function formatDate (date) {
   return `${date.getUTCFullYear()}-${month}-${day}`
 }
 
-export async function getConfig () {
-  const response = await axios.get(`${baseUrl}config`)
+export function getConfig (data) {
   const config = {}
-  response.data.forEach(configEntry => {
+  data.config.forEach(configEntry => {
     if (configEntry.data) {
       try {
         config[configEntry.name] = JSON.parse(configEntry.data)

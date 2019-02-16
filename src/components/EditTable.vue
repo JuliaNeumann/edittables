@@ -24,7 +24,7 @@
   import AddButton from './AddButton'
   import Filters from './Filters'
   import {responsiveMixin} from './mixins/responsive'
-  import {getHeaders, getGroups, getRowsForEdit, addEvent} from '../services/api'
+  import {getHeaders, getGroups, getRowsForEdit, addEvent, getData} from '../services/api'
 
   export default {
     name: 'EditTable',
@@ -52,9 +52,10 @@
       }
     },
     async mounted () {
-      this.heads = await getHeaders()
-      this.groups = await getGroups()
-      this.rows = await getRowsForEdit()
+      const data = await getData()
+      this.heads = getHeaders(data)
+      this.groups = getGroups(data)
+      this.rows = getRowsForEdit(data)
       if (localStorage.getItem('activeHeads')) {
         const cachedActiveHeads = JSON.parse(localStorage.getItem('activeHeads'))
         if (cachedActiveHeads.length === this.heads.length) {
