@@ -25,13 +25,14 @@
         hyphens: auto;
         border-right: 1px solid grey;
         border-bottom: 1px solid grey;
-        padding: 10px;
+        padding: 5px;
         text-align: left;
     }
 
     @media only screen and (min-width: 480px) {
         .head {
             width: 175px;
+            padding: 10px;
         }
     }
 

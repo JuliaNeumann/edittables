@@ -13,7 +13,7 @@
 
 <style scoped>
     .arrow {
-        border: solid darkgray;
+        border: solid #3E6786;
         border-width: 0 3px 3px 0;
         display: inline-block;
         padding: 3px;

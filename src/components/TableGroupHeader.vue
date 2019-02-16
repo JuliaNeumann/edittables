@@ -29,7 +29,7 @@
     .group-header {
         border-bottom: 1px solid grey;
         text-align: left;
-        background-color: #ddd;
+        background-color: #9DB5C7;
         padding: 10px;
         cursor: pointer;
         width: 100%;

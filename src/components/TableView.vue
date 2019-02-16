@@ -11,7 +11,7 @@
                                   :key="`group_head_${index}`"
                                   @click.native="toggleGroup(head.group_id)"/>
                 <tr :key="head.id"
-                    v-if="showRow(head)"
+                    v-show="showRow(head)"
                     class="row"
                     :class="rowClass(head)">
                     <TableHead :text="head.name"
@@ -144,7 +144,7 @@
         display: flex;
     }
     .row--group {
-        background-color: #eee;
+        background-color: #DFE7EE;
     }
     .row--highlight {
       font-weight: bold;
@@ -182,6 +182,7 @@
         font-weight: bold;
         cursor: default;
         outline: none;
+        text-decoration: underline;
     }
     .pagination-previous,
     .pagination-next {
