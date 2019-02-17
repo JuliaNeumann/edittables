@@ -9,7 +9,8 @@
                    :paginate="false"
                    :rows="[row]"
                    :heads="heads.slice(1)"
-                   :groups="groups" />
+                   :groups="groups"
+                   @deleteRow="deleteRow" />
     </article>
 </template>
 
@@ -37,6 +38,9 @@
     methods: {
       toggleShow: function () {
         this.show = !this.show
+      },
+      deleteRow: function (rowId) {
+        this.$emit('deleteRow', rowId)
       }
     }
   }

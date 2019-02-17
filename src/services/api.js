@@ -81,6 +81,13 @@ export async function updateEvent (eventId, headerId, content, type) {
   }
 }
 
+export async function deleteEvent (rowId) {
+  if (rowId) {
+    const response = await axios.delete(`${baseUrl}delete-event`, {params: {event_id: rowId}})
+    return response.data
+  }
+}
+
 function formatDate (date) {
   if (typeof date.getTime !== 'function') {
     date = new Date(date)

@@ -22,6 +22,15 @@
                                :key="`row_${row.id}_${rowIndex}`" />
                 </tr>
             </template>
+            <tr v-if="showActions" class="row">
+              <TableHead text="Aktionen" />
+              <td v-for="(row, rowIndex) in rowsToShow" class="cell">
+                <button :key="`delete_${row.id}_${rowIndex}`"
+                        @click="deleteRow(row.id)">
+                    Löschen
+                </button>
+              </td>
+            </tr>
             </tbody>
         </table>
         <b-pagination v-if="paginate"
@@ -60,7 +69,8 @@
       return {
         activeGroups: [],
         page: 1,
-        rowsPerPage: 2
+        rowsPerPage: 2,
+        showActions: window.eventPlannerApp && window.eventPlannerApp.admin
       }
     },
     computed: {
@@ -114,6 +124,9 @@
       },
       calcColNum: function () {
         this.rowsPerPage = Math.floor((this.$el.clientWidth - HEAD_COL_WIDTH) / COL_WIDTH)
+      },
+      deleteRow: function (rowId) {
+        this.$emit('deleteRow', rowId)
       }
     }
   }
@@ -148,6 +161,14 @@
     }
     .row--highlight {
       font-weight: bold;
+    }
+    .cell {
+      flex: 1;
+      border-bottom: 1px solid grey;
+      padding: 10px;
+    }
+    .cell:not(:last-child) {
+      border-right: 1px solid gray;
     }
 </style>
 

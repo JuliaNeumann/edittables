@@ -1,7 +1,7 @@
 <template>
     <div>
-        <filters :heads="heads" v-model="activeHeads"/>
-        <div v-if="mobile">
+        <RowFilters v-show="loaded" :heads="heads" v-model="activeHeads"/>
+        <div v-if="mobile && loaded">
             <CardView v-for="(row, rowIndex) in rows"
                       :row="row"
                       :heads="heads"
@@ -9,11 +9,12 @@
                       :index="rowIndex"
                       :key="rowIndex" />
         </div>
-        <TableView v-else
+        <TableView v-else-if="loaded"
                    :paginate="true"
                    :heads="heads"
                    :rows="rows"
-                   :groups="groups" />
+                   :groups="groups"
+                   @deleteRow="deleteRow"/>
         <AddButton @addDate="addRow"/>
     </div>
 </template>
@@ -22,9 +23,9 @@
   import CardView from './CardView'
   import TableView from './TableView'
   import AddButton from './AddButton'
-  import Filters from './RowFilters'
+  import RowFilters from './RowFilters'
   import {responsiveMixin} from './mixins/responsive'
-  import {getHeaders, getGroups, getRowsForEdit, addEvent, getData} from '../services/api'
+  import {getHeaders, getGroups, getRowsForEdit, addEvent, getData, deleteEvent} from '../services/api'
 
   export default {
     name: 'EditTable',
@@ -32,7 +33,7 @@
       TableView,
       CardView,
       AddButton,
-      Filters
+      RowFilters
     },
     mixins: [responsiveMixin],
     data () {
@@ -40,7 +41,8 @@
         heads: [],
         groups: {},
         rows: [],
-        activeHeads: []
+        activeHeads: [],
+        loaded: false
       }
     },
     watch: {
@@ -65,12 +67,15 @@
       if (this.activeHeads.length !== this.heads.length) { // that is, not used the ones from cache because not set or not fitting
         this.activeHeads = this.heads.map(() => true)
       }
+      this.loaded = true
     },
     methods: {
       addRow: async function (addDate) {
         const apiResult = await addEvent(addDate)
         if (apiResult && apiResult.success) {
-          this.rows = await getRowsForEdit()
+          const data = await getData()
+          this.rows = await getRowsForEdit(data)
+          this.loaded = true
           return
         }
         if (apiResult && apiResult.error) {
@@ -78,6 +83,23 @@
           return
         }
         alert('Beim Hinzufügen ist ein unbekannter Fehler aufgetreten')
+      },
+      deleteRow: async function (rowId) {
+        const confirmed = window.confirm('Diese Veranstaltung und alle ihre Daten werden endgültig gelöscht. ' +
+          'Dies kann nicht rueckgängig gemacht werden. Bist du sicher?')
+        if (confirmed) {
+          const apiResult = await deleteEvent(rowId)
+          if (apiResult && apiResult.success) {
+            const data = await getData()
+            this.rows = await getRowsForEdit(data)
+            return
+          }
+          if (apiResult && apiResult.error) {
+            alert(`Beim Löschen ist ein Fehler aufgetreten: ${apiResult.error}`)
+            return
+          }
+          alert('Beim Löschen ist ein unbekannter Fehler aufgetreten')
+        }
       }
     }
   }
