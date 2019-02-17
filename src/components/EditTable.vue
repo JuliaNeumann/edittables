@@ -22,7 +22,7 @@
   import CardView from './CardView'
   import TableView from './TableView'
   import AddButton from './AddButton'
-  import Filters from './Filters'
+  import Filters from './RowFilters'
   import {responsiveMixin} from './mixins/responsive'
   import {getHeaders, getGroups, getRowsForEdit, addEvent, getData} from '../services/api'
 

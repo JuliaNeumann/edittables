@@ -1,7 +1,10 @@
 <template>
     <div class="filters">
-        Anzeigen:
-        <ul class="filters__list">
+        <div class="filters__title" @click="show = !show">
+          <ArrowToggle :direction="show ? 'down': 'right'" />
+          <strong>Filter</strong>
+        </div>
+        <ul class="filters__list" v-show="show">
             <li v-for="(head, index) in heads"
                 :key="index"
                 class="filters__item">
@@ -18,8 +21,13 @@
 </template>
 
 <script>
+import ArrowToggle from './ArrowToggle'
+
 export default {
-  name: 'Filters',
+  name: 'RowFilters',
+  components: {
+    ArrowToggle
+  },
   props: {
     heads: {
       type: Array,
@@ -32,6 +40,7 @@ export default {
   },
   data () {
     return {
+      show: false,
       actives: []
     }
   },
@@ -52,6 +61,10 @@ export default {
 <style scoped>
     .filters {
         text-align: left;
+        padding-bottom: 20px;
+    }
+    .filters__title {
+        cursor: pointer;
     }
     .filters__list {
         display: inline-block;
