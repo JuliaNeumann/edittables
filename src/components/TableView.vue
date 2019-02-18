@@ -24,7 +24,7 @@
             </template>
             <tr v-if="showActions" class="row">
               <TableHead text="Aktionen" />
-              <td v-for="(row, rowIndex) in rowsToShow" class="cell">
+              <td v-for="(row, rowIndex) in rowsToShow" class="table__cell">
                 <button :key="`delete_${row.id}_${rowIndex}`"
                         @click="deleteRow(row.id)">
                     Löschen
@@ -162,12 +162,12 @@
     .row--highlight {
       font-weight: bold;
     }
-    .cell {
+    .table__cell {
       flex: 1;
       border-bottom: 1px solid grey;
       padding: 10px;
     }
-    .cell:not(:last-child) {
+    .table__cell:not(:last-child) {
       border-right: 1px solid gray;
     }
 </style>
