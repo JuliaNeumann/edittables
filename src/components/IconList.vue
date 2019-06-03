@@ -1,6 +1,7 @@
 <template>
   <div class="icon-list">
     <i v-for="icon in cleanIcons"
+       :key="icon"
        class="fa fa-fw"
        :class="`fa-${icon}`"
        :title="descriptions[icon]">

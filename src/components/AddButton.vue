@@ -44,6 +44,7 @@
           const dateObj = new Date(this.date)
           return dateObj.toLocaleDateString()
         }
+        return '';
       }
     },
     methods: {

@@ -3,28 +3,32 @@
          class="table-view">
         <table class="table">
             <tbody>
-            <template v-for="(head, index) in heads" v-if="head.active">
-                <TableGroupHeader v-if="startGroup(index)"
-                                  :text="groups[head.group_id]"
-                                  :open="activeGroups.indexOf(head.group_id) > -1"
-                                  :cols="paginate ? rowsPerPage + 1 : 2"
-                                  :key="`group_head_${index}`"
-                                  @click.native="toggleGroup(head.group_id)"/>
-                <tr :key="head.id"
-                    v-show="showRow(head)"
-                    class="row"
-                    :class="rowClass(head)">
-                    <TableHead :text="head.name"
-                               :description="head.description"/>
-                    <TableCell v-for="(row, rowIndex) in rowsToShow"
-                               :head="head"
-                               :row="row"
-                               :key="`row_${row.id}_${rowIndex}`" />
-                </tr>
+            <template v-for="(head, index) in heads">
+                <template v-if="head.active">
+                    <TableGroupHeader v-if="startGroup(index)"
+                                      :text="groups[head.group_id]"
+                                      :open="activeGroups.indexOf(head.group_id) > -1"
+                                      :cols="paginate ? rowsPerPage + 1 : 2"
+                                      :key="`group_head_${index}`"
+                                      @click.native="toggleGroup(head.group_id)"/>
+                    <tr :key="head.id"
+                        v-show="showRow(head)"
+                        class="row"
+                        :class="rowClass(head)">
+                        <TableHead :text="head.name"
+                                   :description="head.description"/>
+                        <TableCell v-for="(row, rowIndex) in rowsToShow"
+                                   :head="head"
+                                   :row="row"
+                                   :key="`row_${row.id}_${rowIndex}`" />
+                    </tr>
+                </template>
             </template>
             <tr v-if="showActions" class="row">
               <TableHead text="Aktionen" />
-              <td v-for="(row, rowIndex) in rowsToShow" class="table__cell">
+              <td v-for="(row, rowIndex) in rowsToShow"
+                  :key="row.id"
+                  class="table__cell">
                 <button :key="`delete_${row.id}_${rowIndex}`"
                         @click="deleteRow(row.id)">
                     Löschen

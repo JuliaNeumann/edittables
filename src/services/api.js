@@ -6,6 +6,7 @@ axios.defaults.headers.common['X-WP-Nonce'] = window.eventPlannerApp ? window.ev
 
 export async function getData () {
   const response = await axios.get(`${baseUrl}all`)
+  console.log(response);
   return response.data
 }
 

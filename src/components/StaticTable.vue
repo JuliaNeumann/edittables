@@ -7,13 +7,15 @@
             <th class="cell"> {{ heads[0].name }}</th>
             <th class="cell"> Information </th>
           </tr>
-          <tr v-for="row in rows">
+          <tr v-for="row in rows"
+              :key="row.fields[heads[0].id]">
             <td class="cell">
               <CellContent :head="heads[0]" :content="row.fields[heads[0].id]"/>
             </td>
             <td class="cell">
               <ul>
-                <li v-for="head in heads.slice(1)">
+                <li v-for="head in heads.slice(1)"
+                    :key="head.id">
                   <strong> {{ head.name }}: </strong>
                   <CellContent :head="head" :content="row.fields[head.id]"/>
                 </li>
@@ -23,10 +25,16 @@
         </template>
         <template v-else>
           <tr>
-            <th v-for="head in heads" class="cell"> {{ head.name }} </th>
+            <th v-for="head in heads"
+                class="cell"
+                :key="head.id">
+              {{ head.name }}
+            </th>
           </tr>
-          <tr v-for="row in rows">
-            <td v-for="head in heads" class="cell">
+          <tr v-for="row in rows"
+              :key="row.fields[heads[0].id]">
+            <td v-for="head in heads" class="cell"
+                :key="head.id">
               <CellContent :head="head" :content="row.fields[head.id]"/>
             </td>
           </tr>

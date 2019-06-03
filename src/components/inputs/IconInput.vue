@@ -2,6 +2,7 @@
   <div v-click-outside="saveNewValue"
        class="options">
     <div v-for="option in options"
+         :key="option.name"
          class="option">
       <input type="checkbox" :value="option.icon" :id="option.icon" v-model="inputContent"/>
       <label :for="option.icon">
