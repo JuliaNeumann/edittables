@@ -14,19 +14,9 @@ Vue.filter('timestampToLocalString', function (timestamp) {
 Vue.use(Buefy)
 
 if (document.getElementById('epp_app')) {
-  /* eslint-disable no-new */
-  new Vue({
-    el: '#epp_app',
-    template: '<App/>',
-    components: { App }
-  })
+  new Vue(App).$mount('#epp_app')
 }
 
 if (document.getElementById('epp_app_static')) {
-  /* eslint-disable no-new */
-  new Vue({
-    el: '#epp_app_static',
-    template: '<AppStatic/>',
-    components: {AppStatic}
-  })
+  new Vue(AppStatic).$mount('#epp_app_static')
 }
