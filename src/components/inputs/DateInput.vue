@@ -1,9 +1,10 @@
 <template>
-    <datepicker v-click-outside="saveNewValue" language="de" :inline="true" @selected="saveNewValue" v-model="inputContent"></datepicker>
+    <datepicker v-click-outside="saveNewValue" :language="datepickerTranslations" :inline="true" @selected="saveNewValue" v-model="inputContent"></datepicker>
 </template>
 
 <script>
   import Datepicker from 'vuejs-datepicker'
+  import {de} from 'vuejs-datepicker/dist/locale'
   import ClickOutside from 'vue-click-outside'
   import {inputMixin} from '../mixins/input'
 
@@ -14,6 +15,7 @@
     },
     data: () => {
       return {
+        datepickerTranslations: de,
         firstClick: true
       }
     },
