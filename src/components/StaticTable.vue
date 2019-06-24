@@ -13,7 +13,7 @@
               <CellContent :head="heads[0]" :content="row.fields[heads[0].id]"/>
             </td>
             <td class="cell">
-              <ul>
+              <ul class="list">
                 <li v-for="head in heads.slice(1)"
                     :key="head.id">
                   <strong> {{ head.name }}: </strong>
@@ -92,5 +92,8 @@
   }
   .cell:not(:last-child) {
     border-right: 1px solid gray;
+  }
+  .list {
+    padding-left: 20px;
   }
 </style>

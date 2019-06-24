@@ -12,12 +12,21 @@
     components: {
       Datepicker
     },
+    data: () => {
+      return {
+        firstClick: true
+      }
+    },
     directives: {
       ClickOutside
     },
     mixins: [inputMixin],
     methods: {
       saveNewValue: function (date) {
+        if (this.firstClick) {
+          this.firstClick = false;
+          return;
+        }
         if (date && typeof date.getTime === 'function') {
           this.inputContent = date.getTime()
         }

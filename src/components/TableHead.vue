@@ -40,7 +40,7 @@
         display: none;
         position: absolute;
         max-width: 250px;
-        background-color: lightgray;
+        background-color: #DFE7EE;
         border: 1px solid gray;
         padding: 3px;
         z-index: 1;
