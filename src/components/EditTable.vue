@@ -16,11 +16,13 @@
                    :groups="groups"
                    @deleteRow="deleteRow"/>
         <AddButton @addDate="addRow"/>
+        <FootnoteList :heads="getActiveHeads"/>
     </div>
 </template>
 
 <script>
   import CardView from './CardView'
+  import FootnoteList from './FootnoteList'
   import TableView from './TableView'
   import AddButton from './AddButton'
   import RowFilters from './RowFilters'
@@ -33,7 +35,8 @@
       TableView,
       CardView,
       AddButton,
-      RowFilters
+      RowFilters,
+      FootnoteList
     },
     mixins: [responsiveMixin],
     data () {
@@ -43,6 +46,11 @@
         rows: [],
         activeHeads: [],
         loaded: false
+      }
+    },
+    computed: {
+      getActiveHeads: function () {
+        return this.heads.filter((head) => head.active)
       }
     },
     watch: {

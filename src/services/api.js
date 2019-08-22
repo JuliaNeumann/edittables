@@ -10,6 +10,7 @@ export async function getData () {
 }
 
 export function getHeaders (data) {
+  let footnoteCounter = 1
   return data.headers
     .sort(function (head1, head2) {
       const head1OrderId = parseInt(head1.order_id)
@@ -21,6 +22,13 @@ export function getHeaders (data) {
     })
     .map(head => {
       head.active = true // TODO: sync with localStorage
+      head.footnotes = []
+      data.header_footnotes.forEach((footnote) => {
+        if (footnote.header_id === head.id) {
+          head.footnotes.push({number: footnoteCounter, text: footnote.text})
+          footnoteCounter++
+        }
+      })
       return head
     })
 }

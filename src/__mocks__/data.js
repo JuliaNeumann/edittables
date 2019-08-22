@@ -9,6 +9,7 @@ export default {
     },
     {
       name: 'Moderator',
+      description: '...führt durch den Gottesdienst',
       type: 'text',
       id: 2,
       order_id: 2,
@@ -49,6 +50,20 @@ export default {
     {
       id: 1,
       name: 'Musik'
+    }
+  ],
+  header_footnotes: [
+    {
+      header_id: 3,
+      text: 'Verantwortliche für den Bereich Musik ist Johanna.'
+    },
+    {
+      header_id: 3,
+      text: 'Die Lieder sollten spätestens am Samstagabend der Technik mitgeteilt werden.'
+    },
+    {
+      header_id: 2,
+      text: 'Verantwortlicher für den Bereich Moderation ist Manuel.'
     }
   ],
   groups: {

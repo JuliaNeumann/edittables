@@ -3,7 +3,7 @@
          class="table-view">
         <table class="table">
             <tbody>
-            <template v-for="(head, index) in heads" v-if="head.active">
+            <template v-for="(head, index) in activeHeads">
                 <TableGroupHeader v-if="startGroup(index)"
                                   :text="groups[head.group_id]"
                                   :open="activeGroups.indexOf(head.group_id) > -1"
@@ -15,7 +15,8 @@
                     class="row"
                     :class="rowClass(head)">
                     <TableHead :text="head.name"
-                               :description="head.description"/>
+                               :description="head.description"
+                               :footnotes="head.footnotes" />
                     <TableCell v-for="(row, rowIndex) in rowsToShow"
                                :head="head"
                                :row="row"
@@ -86,6 +87,9 @@
         return {
           'table--view-small': this.rowsToShow.length < 2
         }
+      },
+      activeHeads: function () {
+        return this.heads.filter((head) => head.active)
       }
     },
     watch: {
