@@ -1,4 +1,5 @@
 import axios from 'axios'
+// import data from '../__mocks__/data'
 
 const restRoot = window.eventPlannerApp ? window.eventPlannerApp.rest_url : 'http://127.0.0.1:8000/wp-json/'
 const baseUrl = restRoot + 'event-planner/v1/'
@@ -9,6 +10,7 @@ export async function getData () {
      method: 'get',
      url: `${baseUrl}all`
   })
+  // return data
 }
 
 export function getHeaders (data) {
