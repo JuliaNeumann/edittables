@@ -6,8 +6,8 @@ axios.defaults.headers.common['X-WP-Nonce'] = window.eventPlannerApp ? window.ev
 
 export async function getData () {
   return await saveRequest({
-    method: 'get',
-    url: `${baseUrl}all`
+     method: 'get',
+     url: `${baseUrl}all`
   })
 }
 
@@ -28,12 +28,14 @@ export function getHeaders (data) {
     .map(head => {
       head.active = true // TODO: sync with localStorage
       head.footnotes = []
-      data.header_footnotes.forEach((footnote) => {
-        if (footnote.header_id === head.id) {
-          head.footnotes.push({number: footnoteCounter, text: footnote.text})
-          footnoteCounter++
-        }
-      })
+      if (data.header_footnotes) {
+        data.header_footnotes.forEach((footnote) => {
+          if (footnote.header_id === head.id) {
+            head.footnotes.push({number: footnoteCounter, text: footnote.text})
+            footnoteCounter++
+          }
+        })
+      }
       return head
     })
 }

@@ -73,12 +73,23 @@ export default {
     {
       fields: [
         1,
-        '2019-08-25',
+        '2019-09-25',
         'Manuel',
         'Jonas',
         'Jonas\nSusi',
         'Ich verdanke dir soviel, mein Gott',
         'Taufe'
+      ]
+    },
+    {
+      fields: [
+        2,
+        '2019-10-25',
+        'Beni',
+        'Antje',
+        'Antje\nJonas\nSusi',
+        'Ich verdanke dir soviel, mein Gott',
+        ''
       ]
     }
   ],
