@@ -15,7 +15,8 @@
                    :rows="rows"
                    :groups="groups"
                    @deleteRow="deleteRow"/>
-        <AddButton @addDate="addRow"/>
+        <AddButton v-if="loaded"
+                   @addDate="addRow"/>
         <FootnoteList :heads="getActiveHeads"/>
     </div>
 </template>
@@ -63,6 +64,9 @@
     },
     async mounted () {
       const data = await getData()
+      if (data === false) {
+        return;
+      }
       this.heads = getHeaders(data)
       this.groups = getGroups(data)
       this.rows = getRowsForEdit(data)
@@ -106,7 +110,7 @@
             alert(`Beim Löschen ist ein Fehler aufgetreten: ${apiResult.error}`)
             return
           }
-          alert('Beim Löschen ist ein unbekannter Fehler aufgetreten')
+          alert(`Beim Löschen ist ein unbekannter Fehler aufgetreten`)
         }
       }
     }

@@ -18,7 +18,6 @@
 
 <script>
   import InputField from './InputField'
-  import IconList from './IconList'
   import CellContent from './CellContent'
   import {updateEvent} from '../services/api'
 
@@ -26,7 +25,6 @@
     name: 'TableCell',
     components: {
       InputField,
-      IconList,
       CellContent
     },
     props: [

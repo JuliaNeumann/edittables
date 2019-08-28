@@ -5,11 +5,16 @@ const baseUrl = restRoot + 'event-planner/v1/'
 axios.defaults.headers.common['X-WP-Nonce'] = window.eventPlannerApp ? window.eventPlannerApp.nonce : null
 
 export async function getData () {
-  const response = await axios.get(`${baseUrl}all`)
-  return response.data
+  return await saveRequest({
+    method: 'get',
+    url: `${baseUrl}all`
+  })
 }
 
 export function getHeaders (data) {
+  if (!data.headers) {
+    return [];
+  }
   let footnoteCounter = 1
   return data.headers
     .sort(function (head1, head2) {
@@ -35,6 +40,9 @@ export function getHeaders (data) {
 
 export function getGroups (data) {
   const groups = {}
+  if (!data.header_groups) {
+    return groups;
+  }
   data.header_groups.forEach(group => {
     groups[group.id] = group.name
   })
@@ -42,6 +50,9 @@ export function getGroups (data) {
 }
 
 export function getRowsForEdit (data) {
+  if (!data.events) {
+    return [];
+  }
   const today = new Date()
   const yesterday = new Date(today)
   yesterday.setDate(today.getDate() - 2)
@@ -59,6 +70,9 @@ export function getRowsForEdit (data) {
 }
 
 export function getRowsForCurrentYear (data) {
+  if (!data.events) {
+    return [];
+  }
   const currentYear = (new Date()).getFullYear()
   return data.events.filter(event => { // show only events starting from yesterday ...
     return event.fields && event.fields[1] && (new Date(event.fields[1]).getFullYear() === currentYear)
@@ -73,8 +87,11 @@ export function getRowsForCurrentYear (data) {
 export async function addEvent (newDate) {
   if (newDate) {
     const formattedDate = formatDate(newDate)
-    const response = await axios.post(`${baseUrl}add-event`, {date: formattedDate})
-    return response.data
+    return await saveRequest({
+      method: 'post',
+      url: `${baseUrl}add-event`,
+      data: {date: formattedDate}
+    })
   }
 }
 
@@ -83,16 +100,21 @@ export async function updateEvent (eventId, headerId, content, type) {
     if (type === 'date') {
       content = formatDate(content)
     }
-    const response = await axios.post(`${baseUrl}update-event`,
-      {'event_id': eventId, 'header_id': headerId, content: content})
-    return response.data
+    return await saveRequest({
+      method: 'post',
+      url: `${baseUrl}update-event`,
+      data: {'event_id': eventId, 'header_id': headerId, content: content}
+    })
   }
 }
 
 export async function deleteEvent (rowId) {
   if (rowId) {
-    const response = await axios.delete(`${baseUrl}delete-event`, {params: {event_id: rowId}})
-    return response.data
+    return await saveRequest({
+      method: 'delete',
+      url: `${baseUrl}delete-event`,
+      data: {event_id: rowId}
+    })
   }
 }
 
@@ -107,6 +129,9 @@ function formatDate (date) {
 
 export function getConfig (data) {
   const config = {}
+  if (!data.config) {
+    return config;
+  }
   data.config.forEach(configEntry => {
     if (configEntry.data) {
       try {
@@ -118,3 +143,15 @@ export function getConfig (data) {
   })
   return config
 }
+
+async function saveRequest(axiosConfig) {
+  try {
+    const response = await axios(axiosConfig)
+    return response.data
+  } catch {
+    alert("Bei der Verbindung zum Server ist ein Fehler aufgetreten! " +
+      "Stelle sicher, dass du eingeloggt bist und versuche es noch einmal.");
+    return false;
+  }
+}
+

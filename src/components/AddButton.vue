@@ -4,7 +4,7 @@
         <b-modal :active.sync="showOverlay">
             <div class="add">
                 Bitte Datum auswählen:
-                <datepicker language="de" :inline="true" v-model="date" :open-date="lastDate" class="add__datepicker"></datepicker>
+                <datepicker :language="datepickerTranslations" :inline="true" v-model="date" :open-date="lastDate" class="add__datepicker"></datepicker>
                 <div class="add__date">
                     {{ formatDate }}
                 </div>
@@ -25,6 +25,7 @@
 
 <script>
   import Datepicker from 'vuejs-datepicker'
+  import {de} from 'vuejs-datepicker/dist/locale'
 
   export default {
     name: 'AddButton',
@@ -33,6 +34,7 @@
     },
     data: function () {
       return {
+        datepickerTranslations: de,
         showOverlay: false,
         date: '',
         lastDate: ''
@@ -44,6 +46,7 @@
           const dateObj = new Date(this.date)
           return dateObj.toLocaleDateString()
         }
+        return '';
       }
     },
     methods: {

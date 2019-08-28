@@ -25,7 +25,9 @@
             </template>
             <tr v-if="showActions" class="row">
               <TableHead text="Aktionen" />
-              <td v-for="(row, rowIndex) in rowsToShow" class="table__cell">
+              <td v-for="(row, rowIndex) in rowsToShow"
+                  :key="row.id"
+                  class="table__cell">
                 <button :key="`delete_${row.id}_${rowIndex}`"
                         @click="deleteRow(row.id)">
                     Löschen
