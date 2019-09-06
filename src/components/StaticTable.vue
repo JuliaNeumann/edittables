@@ -11,6 +11,7 @@
               :key="row.fields[heads[0].id]">
             <td class="cell">
               <CellContent :head="heads[0]" :content="row.fields[heads[0].id]"/>
+              <EditButton :heads="heads.slice(1)" :row="row"/>
             </td>
             <td class="cell">
               <ul class="list">
@@ -46,13 +47,15 @@
 
 <script>
   import CellContent from './CellContent'
+  import EditButton from './EditButton'
   import {responsiveMixin} from './mixins/responsive'
   import {getHeaders, getConfig, getRowsForCurrentYear, getData} from '../services/api'
 
   export default {
     name: 'StaticTable',
     components: {
-      CellContent
+      CellContent,
+      EditButton
     },
     mixins: [responsiveMixin],
     data () {
@@ -95,5 +98,9 @@
   }
   .list {
     padding-left: 20px;
+  }
+  .edit-button {
+    width: 25px;
+    height: 25px;
   }
 </style>

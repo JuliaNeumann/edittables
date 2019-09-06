@@ -1,5 +1,6 @@
 <template>
-    <td class="cell"
+    <component :is="htmlTag"
+        class="cell"
         :style="inlineStyles"
         @click="startEdit"
         @focus="startEdit">
@@ -13,7 +14,7 @@
                     v-model="cellContent"
                     :type="head.type"
                     :additional="head.additional"/>
-    </td>
+    </component>
 </template>
 
 <script>
@@ -29,7 +30,8 @@
     },
     props: [
       'head',
-      'row'
+      'row',
+      'tag'
     ],
     data: function () {
       return {
@@ -39,6 +41,9 @@
       }
     },
     computed: {
+      htmlTag () {
+        return this.tag || 'td'
+      },
       inlineStyles () {
         return this.currentHeight ? {
           height: this.head.type !== 'icons' ? `${this.currentHeight}px` : 'auto'
