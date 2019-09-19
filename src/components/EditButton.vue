@@ -1,9 +1,9 @@
 <template>
     <div>
         <button @click="showOverlay = true">
-            <i class="fa fa-fw fa-edit"></i>
+            Bearbeiten
         </button>
-        <b-modal :active.sync="showOverlay">
+        <b-modal :active.sync="showOverlay" @close="handleClose">
             <div class="edit">
                 <div class="edit-intro">Zum Bearbeiten auf die Felder klicken.</div>
                 <div v-for="head in heads"
@@ -32,7 +32,9 @@
       'heads'
     ],
     methods: {
-      // TODO: test, refresh table on close
+      handleClose () {
+          this.$emit('updated');
+      }
     }
   }
 </script>

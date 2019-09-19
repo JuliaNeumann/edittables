@@ -11,7 +11,7 @@
               :key="row.fields[heads[0].id]">
             <td class="cell">
               <CellContent :head="heads[0]" :content="row.fields[heads[0].id]"/>
-              <EditButton :heads="heads.slice(1)" :row="row"/>
+              <EditButton :heads="heads.slice(1)" :row="row" @updated="setData"/>
             </td>
             <td class="cell">
               <ul class="list">
@@ -34,9 +34,10 @@
           </tr>
           <tr v-for="row in rows"
               :key="row.fields[heads[0].id]">
-            <td v-for="head in heads" class="cell"
+            <td v-for="(head, index) in heads" class="cell"
                 :key="head.id">
               <CellContent :head="head" :content="row.fields[head.id]"/>
+              <EditButton v-if="index === 0" :heads="heads.slice(1)" :row="row" @updated="setData"/>
             </td>
           </tr>
         </template>
@@ -67,14 +68,19 @@
       }
     },
     async mounted () {
-      const data = await getData()
-      this.config = getConfig(data)
-      this.heads = getHeaders(data)
-      this.rows = getRowsForCurrentYear(data)
+      await this.setData();
+    },
+    methods: {
+      async setData () {
+        const data = await getData()
+        this.config = getConfig(data)
+        this.heads = getHeaders(data)
+        this.rows = getRowsForCurrentYear(data)
 
-      this.heads = this.heads.filter(head => {
-        return this.config.static_fields.indexOf(parseInt(head.id)) > -1
-      })
+        this.heads = this.heads.filter(head => {
+          return this.config.static_fields.indexOf(parseInt(head.id)) > -1
+        })
+      }
     }
   }
 </script>

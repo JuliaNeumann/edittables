@@ -6,7 +6,7 @@ const baseUrl = restRoot + 'event-planner/v1/'
 axios.defaults.headers.common['X-WP-Nonce'] = window.eventPlannerApp ? window.eventPlannerApp.nonce : null
 
 export async function getData () {
-  return await saveRequest({
+  return await safeRequest({
      method: 'get',
      url: `${baseUrl}all`
   })
@@ -91,7 +91,7 @@ export function getRowsForCurrentYear (data) {
 export async function addEvent (newDate) {
   if (newDate) {
     const formattedDate = formatDate(newDate)
-    return await saveRequest({
+    return await safeRequest({
       method: 'post',
       url: `${baseUrl}add-event`,
       data: {date: formattedDate}
@@ -104,7 +104,7 @@ export async function updateEvent (eventId, headerId, content, type) {
     if (type === 'date') {
       content = formatDate(content)
     }
-    return await saveRequest({
+    return await safeRequest({
       method: 'post',
       url: `${baseUrl}update-event`,
       data: {'event_id': eventId, 'header_id': headerId, content: content}
@@ -114,7 +114,7 @@ export async function updateEvent (eventId, headerId, content, type) {
 
 export async function deleteEvent (rowId) {
   if (rowId) {
-    return await saveRequest({
+    return await safeRequest({
       method: 'delete',
       url: `${baseUrl}delete-event`,
       data: {event_id: rowId}
@@ -148,7 +148,7 @@ export function getConfig (data) {
   return config
 }
 
-async function saveRequest(axiosConfig) {
+async function safeRequest(axiosConfig) {
   try {
     const response = await axios(axiosConfig)
     return response.data
