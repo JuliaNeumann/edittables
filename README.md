@@ -1,11 +1,16 @@
 # edittables
 
+This app is built as the frontend part of a WordPress plugin (WIP) which allows to create tables for planning events, such as church services. The table contents can be edited on the fly by clicking on them (when using EditTable) or by clicking on an extra button (when using StaticTable).
+
+
 ## Project setup
 ```
 yarn install
 ```
 
 ### Compiles and hot-reloads for development
+For local testing, you can use the `data` provided under `__mocks__` in `services/api.js` instead of pointing to the WordPress backend.
+
 ```
 yarn run serve
 ```
@@ -13,11 +18,6 @@ yarn run serve
 ### Compiles and minifies for production
 ```
 yarn run build
-```
-
-### Run your tests
-```
-yarn run test
 ```
 
 ### Lints and fixes files
