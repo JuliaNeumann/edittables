@@ -8,11 +8,13 @@
             <li v-for="(head, index) in heads"
                 :key="index"
                 class="filters__item">
-                <input type="checkbox"
+                <input v-if="index > 0"
+                       type="checkbox"
                        name="filter"
                        :id="`filter_${index}`"
                        v-model="actives[index]" />
-                <label :for="`filter_${index}`">
+                <label v-if="index > 0"
+                       :for="`filter_${index}`">
                     {{ head.name }}
                 </label>
             </li>
