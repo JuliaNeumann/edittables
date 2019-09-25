@@ -104,6 +104,7 @@
   }
   .list {
     padding-left: 20px;
+    margin: 0;
   }
   .edit-button {
     width: 25px;

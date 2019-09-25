@@ -161,5 +161,10 @@
     .add__button {
         width: 100%;
         text-align: center;
+        max-width: 450px;
+    }
+
+    .vdp-datepicker__calendar {
+        margin: 0 auto;
     }
 </style>

@@ -67,6 +67,12 @@
         z-index: -1;
     }
 
+    .modal-content {
+        width: 650px;
+        max-width: 100% !important;
+        margin: 10px;
+    }
+
     .modal-close {
         height: 32px;
         max-height: 32px;

@@ -8,41 +8,51 @@ export default {
       active: true
     },
     {
-      name: 'Moderator',
-      description: '...führt durch den Gottesdienst',
-      type: 'text',
-      id: 2,
-      order_id: 2,
-      active: true
+       id: 2,
+       name: "Besonderes",
+       order_id: 2,
+       type: "icons",
+       group_id: null,
+       description: null,
+       active: true,
+       additional: "[{\"name\":\"Familiengottesdienst\",\"icon\":\"child\"},{\"name\":\"Abendmahl\",\"icon\":\"trophy\"},{\"name\":\"Gemeindecafé\",\"icon\":\"coffee\"},{\"name\":\"Fällt aus\",\"icon\":\"ban\"}]"
     },
     {
-      name: 'Musik-Verantwortlicher',
+      name: 'Moderator',
+      description: '...führt durch den Gottesdienst',
       type: 'text',
       id: 3,
       order_id: 3,
       active: true
     },
     {
-      name: 'Musiker',
-      type: 'longtext',
+      name: 'Musik-Verantwortlicher',
+      type: 'text',
       id: 4,
       order_id: 4,
-      group_id: 1,
       active: true
     },
     {
-      name: 'Predigtlied',
-      type: 'text',
+      name: 'Musiker',
+      type: 'longtext',
       id: 5,
       order_id: 5,
       group_id: 1,
       active: true
     },
     {
-      name: 'Besonderheiten',
-      type: 'longtext',
+      name: 'Predigtlied',
+      type: 'text',
       id: 6,
       order_id: 6,
+      group_id: 1,
+      active: true
+    },
+    {
+      name: 'Besonderheiten',
+      type: 'longtext',
+      id: 7,
+      order_id: 7,
       active: true
     }
   ],
@@ -54,15 +64,15 @@ export default {
   ],
   header_footnotes: [
     {
-      header_id: 3,
+      header_id: 4,
       text: 'Verantwortliche für den Bereich Musik ist Johanna.'
     },
     {
-      header_id: 3,
+      header_id: 4,
       text: 'Die Lieder sollten spätestens am Samstagabend der Technik mitgeteilt werden.'
     },
     {
-      header_id: 2,
+      header_id: 3,
       text: 'Verantwortlicher für den Bereich Moderation ist Manuel.'
     }
   ],
@@ -74,6 +84,7 @@ export default {
       fields: [
         1,
         '2019-09-25',
+        '["trophy"]',
         'Manuel',
         'Jonas',
         'Jonas\nSusi',
@@ -85,6 +96,7 @@ export default {
       fields: [
         2,
         '2019-10-25',
+        '[]',
         'Beni',
         'Antje',
         'Antje\nJonas\nSusi',

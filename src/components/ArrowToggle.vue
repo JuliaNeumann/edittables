@@ -17,7 +17,7 @@
         border-width: 0 3px 3px 0;
         display: inline-block;
         padding: 3px;
-        margin: 0 3px 2px 0;
+        margin: 0 8px 2px 0;
         border-radius: 1px;
     }
     .arrow--big {
