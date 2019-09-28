@@ -83,7 +83,7 @@ export default {
     {
       fields: [
         1,
-        '2019-09-25',
+        '2019-10-29',
         '["trophy"]',
         'Manuel',
         'Jonas',

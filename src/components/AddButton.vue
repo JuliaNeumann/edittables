@@ -25,7 +25,7 @@
 
 <script>
   import Datepicker from 'vuejs-datepicker'
-  import {de} from 'vuejs-datepicker/dist/locale'
+  import de from '../../node_modules/vuejs-datepicker/src/locale/translations/de'
 
   export default {
     name: 'AddButton',
@@ -37,7 +37,7 @@
         datepickerTranslations: de,
         showOverlay: false,
         date: '',
-        lastDate: ''
+        lastDate: new Date()
       }
     },
     computed: {

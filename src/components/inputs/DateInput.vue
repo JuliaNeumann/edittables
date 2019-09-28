@@ -4,7 +4,7 @@
 
 <script>
   import Datepicker from 'vuejs-datepicker'
-  import {de} from 'vuejs-datepicker/dist/locale'
+  import de from '../../../node_modules/vuejs-datepicker/src/locale/translations/de'
   import ClickOutside from 'vue-click-outside'
   import {inputMixin} from '../mixins/input'
 
