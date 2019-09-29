@@ -4,12 +4,13 @@
         <table class="table">
             <tbody>
             <template v-for="(head, index) in activeHeads">
-                <TableGroupHeader v-if="startGroup(index)"
-                                  :text="groups[head.group_id]"
-                                  :open="activeGroups.indexOf(head.group_id) > -1"
-                                  :cols="paginate ? rowsPerPage + 1 : 2"
-                                  :key="`group_head_${index}`"
-                                  @click.native="toggleGroup(head.group_id)"/>
+                <tr class="row" :key="`group_head_${index}`">
+                  <TableGroupHeader v-if="startGroup(index)"
+                                    :text="groups[head.group_id]"
+                                    :open="activeGroups.indexOf(head.group_id) > -1"
+                                    :cols="paginate ? rowsPerPage + 1 : 2"
+                                    @click.native="toggleGroup(head.group_id)"/>
+                </tr>
                 <tr :key="head.id"
                     v-show="showRow(head)"
                     class="row"

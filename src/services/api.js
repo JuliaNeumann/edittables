@@ -78,7 +78,7 @@ export function getRowsForCurrentYear (data) {
     return [];
   }
   const currentYear = (new Date()).getFullYear()
-  return data.events.filter(event => { // show only events starting from yesterday ...
+  const events = data.events.filter(event => { // show only events for the current year ...
     return event.fields && event.fields[1] && (new Date(event.fields[1]).getFullYear() === currentYear)
   }).sort(function (event1, event2) { // ... and sort by date
     if (new Date(event1.fields[1]) < new Date(event2.fields[1])) {
@@ -86,6 +86,12 @@ export function getRowsForCurrentYear (data) {
     }
     return (new Date(event1.fields[1]) > new Date(event2.fields[1])) ? 1 : 0
   })
+  const eventsByQuarter = [[], [], [], []];
+  events.forEach(event => {
+    const month = (new Date(event.fields[1])).getMonth();
+    eventsByQuarter[Math.floor(month / 3)].push(event);  
+  });
+  return eventsByQuarter;
 }
 
 export async function addEvent (newDate) {

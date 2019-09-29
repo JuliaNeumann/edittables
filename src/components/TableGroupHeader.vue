@@ -1,10 +1,8 @@
 <template>
-    <tr class="row">
-        <td :colspan="cols" class="group-header">
-            <ArrowToggle :direction="this.open ? 'down' : 'right'"/>
-            <strong>{{ text }}</strong>
-        </td>
-    </tr>
+    <td :colspan="cols" class="group-header">
+        <ArrowToggle :direction="this.open ? 'down' : 'right'"/>
+        <strong>{{ text }}</strong>
+    </td>
 </template>
 
 <script>
@@ -23,9 +21,6 @@
 </script>
 
 <style scoped>
-    .row {
-        display: flex;
-    }
     .group-header {
         border-bottom: 1px solid grey;
         text-align: left;
