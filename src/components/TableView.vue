@@ -215,7 +215,7 @@
     }
     .pagination-previous,
     .pagination-next {
-        margin-top: -2px;
+        margin-top: 2px;
         display: flex;
         align-items: center;
     }

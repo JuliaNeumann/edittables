@@ -5,7 +5,7 @@
             <ArrowToggle :direction="show ? 'down': 'right'" class="arrow--big" />
             {{ row.fields[1] | timestampToLocalString }}
         </h2>
-        <TableView v-if="show"
+        <TableView v-show="show"
                    :paginate="false"
                    :rows="[row]"
                    :heads="heads.slice(1)"
