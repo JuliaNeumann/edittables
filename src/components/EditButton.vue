@@ -5,7 +5,7 @@
         </button>
         <b-modal :active.sync="showOverlay" @close="handleClose">
             <div class="edit">
-                <div class="edit__intro">Zum Bearbeiten auf die Felder klicken.</div>
+                <div ref="intro" class="edit__intro">Zum Bearbeiten auf die Felder klicken.</div>
                 <div v-for="head in heads"
                      :key="head.id">
                     <strong>{{head.name}}:</strong><br>
@@ -42,8 +42,9 @@
           this.$emit('updated');
       },
       saveAndClose () {
-          this.showOverlay = false;
-          this.handleClose();
+        this.$refs.intro.click();  
+        this.showOverlay = false;
+        this.handleClose();
       }
     }
   }
