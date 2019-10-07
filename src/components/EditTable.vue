@@ -7,7 +7,8 @@
                       :heads="heads"
                       :groups="groups"
                       :index="rowIndex"
-                      :key="rowIndex" />
+                      :key="rowIndex"
+                      @deleteRow="deleteRow" />
         </div>
         <TableView v-else-if="loaded"
                    :paginate="true"
