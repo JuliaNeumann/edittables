@@ -49,9 +49,10 @@
         display: none;
         position: absolute;
         max-width: 250px;
-        background-color: #DFE7EE;
-        border: 1px solid gray;
-        padding: 3px;
+        background-color: white;
+        color: #3E6786;
+        border: 1px solid #3E6786;
+        padding: 5px;
         z-index: 1;
     }
 
