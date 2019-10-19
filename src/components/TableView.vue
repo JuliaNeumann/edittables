@@ -109,8 +109,8 @@
     },
     methods: {
       startGroup: function (headIndex) {
-        return this.heads[headIndex].group_id &&                       // current head belongs to a group and ...
-          (headIndex === 0 || !this.heads[headIndex - 1].group_id)     // ... is the first head or the head before it does not belong to a group
+        return this.activeHeads[headIndex].group_id &&                       // current head belongs to a group and ...
+          (headIndex === 0 || !this.activeHeads[headIndex - 1].group_id)     // ... is the first head or the head before it does not belong to a group
       },
       toggleGroup: function (groupID) {
         const index = this.activeGroups.indexOf(groupID)
