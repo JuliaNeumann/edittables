@@ -6,6 +6,7 @@
 
 <script>
 import EditTable from './components/EditTable'
+import "./assets/css/general_styles.css"
 
 export default {
   name: 'app',
@@ -17,7 +18,7 @@ export default {
 
 <style>
 #epp_app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
