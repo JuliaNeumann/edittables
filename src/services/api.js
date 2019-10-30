@@ -73,13 +73,12 @@ export function getRowsForEdit (data) {
   })
 }
 
-export function getRowsForCurrentYear (data) {
+export function getRowsForYear (data, year) {
   if (!data.events) {
     return [];
   }
-  const currentYear = (new Date()).getFullYear()
-  const events = data.events.filter(event => { // show only events for the current year ...
-    return event.fields && event.fields[1] && (new Date(event.fields[1]).getFullYear() === currentYear)
+  const events = data.events.filter(event => { // show only events for the given year ...
+    return event.fields && event.fields[1] && (new Date(event.fields[1]).getFullYear() === year)
   }).sort(function (event1, event2) { // ... and sort by date
     if (new Date(event1.fields[1]) < new Date(event2.fields[1])) {
       return -1

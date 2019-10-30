@@ -1,69 +1,73 @@
 <template>
   <div>
-    <table class="table" v-if="heads.length > 0">
-      <tbody>
-        <template v-if="mobile">
-          <tr>
-            <th class="cell"> {{ heads[0].name }}</th>
-            <th class="cell"> Information </th>
-          </tr>
-          <template v-for="(quarter, index) in rowsByQuarter">
-            <tr :key="`quarter_${index}`">
-              <TableGroupHeader :text="`Quartal ${index + 1}`"
-                                :cols="2"
-                                :open="showQuarter(index)"
-                                @click.native="toggleQuarter(index)"/>
+    <template v-for="year in yearData">
+      <h2 class="header" :key="'header_' + year.year">{{ year.year }}</h2>
+      <table :key="'table_' + year.year" class="table" v-if="heads.length > 0">
+        <tbody>
+          <template v-if="mobile">
+            <tr>
+              <th class="cell"> {{ heads[0].name }}</th>
+              <th class="cell"> Information </th>
             </tr>
-            <template v-if="showQuarter(index)">
-              <tr v-for="row in quarter"
-                  :key="row.fields[heads[0].id]">
-                <td class="cell">
-                  <CellContent :head="heads[0]" :content="row.fields[heads[0].id]"/>
-                  <EditButton :heads="heads.slice(1)" :row="row" @updated="setData"/>
-                </td>
-                <td class="cell">
-                  <ul class="list">
-                    <li v-for="head in heads.slice(1)"
-                        :key="head.id">
-                      <strong> {{ head.name }}: </strong>
-                      <CellContent :head="head" :content="row.fields[head.id]"/>
-                    </li>
-                  </ul>
-                </td>
+            <template v-for="(quarter, index) in year.rowsByQuarter">
+              <tr :key="`quarter_${index}`">
+                <TableGroupHeader :text="`Quartal ${index + 1}`"
+                                  :cols="2"
+                                  :open="showQuarter(year.year + '_' + index)"
+                                  @click.native="toggleQuarter(year.year + '_' + index)"/>
               </tr>
+              <template v-if="showQuarter(year.year + '_' + index)">
+                <tr v-for="row in quarter"
+                    :key="row.fields[heads[0].id]">
+                  <td class="cell">
+                    <CellContent :head="heads[0]" :content="row.fields[heads[0].id]"/>
+                    <EditButton :heads="heads.slice(1)" :row="row" @updated="setData"/>
+                  </td>
+                  <td class="cell">
+                    <ul class="list">
+                      <li v-for="head in heads.slice(1)"
+                          :key="head.id">
+                        <strong> {{ head.name }}: </strong>
+                        <CellContent :head="head" :content="row.fields[head.id]"/>
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              </template>
             </template>
           </template>
-        </template>
-        <template v-else>
-          <tr>
-            <th v-for="head in heads"
-                class="cell"
-                :key="head.id">
-              {{ head.name }}
-            </th>
-          </tr>
-          <template v-for="(quarter, index) in rowsByQuarter">
-            <tr :key="`quarter_${index}`">
-              <TableGroupHeader :text="`Quartal ${index + 1}`"
-                                :cols="configStaticFields.length"
-                                :open="showQuarter(index)"
-                                @click.native="toggleQuarter(index)"/>
+          <template v-else>
+            <tr>
+              <th v-for="head in heads"
+                  class="cell"
+                  :key="head.id">
+                {{ head.name }}
+              </th>
             </tr>
-            <template v-if="showQuarter(index)">
-              <tr v-for="row in quarter"
-                  :key="row.fields[heads[0].id]">
-                <td v-for="(head, headIndex) in heads" class="cell"
-                    :key="head.id">
-                  <CellContent :head="head" :content="row.fields[head.id]"/>
-                  <EditButton v-if="headIndex === 0" :heads="heads.slice(1)" :row="row" @updated="setData"/>
-                </td>
+            <template v-for="(quarter, index) in year.rowsByQuarter">
+              <tr :key="`quarter_${index}`">
+                <TableGroupHeader :text="`Quartal ${index + 1}`"
+                                  :cols="configStaticFields.length"
+                                  :open="showQuarter(year.year + '_' + index)"
+                                  @click.native="toggleQuarter(year.year + '_' + index)"/>
               </tr>
+              <template v-if="showQuarter(year.year + '_' + index)">
+                <tr v-for="row in quarter"
+                    :key="row.fields[heads[0].id]">
+                  <td v-for="(head, headIndex) in heads" class="cell"
+                      :key="head.id">
+                    <CellContent :head="head" :content="row.fields[head.id]"/>
+                    <EditButton v-if="headIndex === 0" :heads="heads.slice(1)" :row="row" @updated="setData"/>
+                  </td>
+                </tr>
+              </template>
             </template>
+            
           </template>
-          
-        </template>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </template>
+    
   </div>
 </template>
 
@@ -72,7 +76,7 @@
   import EditButton from './EditButton'
   import TableGroupHeader from './TableGroupHeader'
   import {responsiveMixin} from './mixins/responsive'
-  import {getHeaders, getConfig, getRowsForCurrentYear, getData} from '../services/api'
+  import {getHeaders, getConfig, getRowsForYear, getData} from '../services/api'
 
   export default {
     name: 'StaticTable',
@@ -86,33 +90,45 @@
       return {
         heads: [],
         configStaticFields: [],
-        rowsByQuarter: [],
+        yearData: [],
         mobile: true,
-        activeQuarters: []
+        activeQuarters: [],
+        years: [new Date().getFullYear()]
       }
     },
     async mounted () {
-      this.activeQuarters.push(Math.floor((new Date()).getMonth() / 3));
-      await this.setData();
+      const wrapper = document.getElementById('epp_app_static_wrapper');
+      if (wrapper) {
+        this.years = wrapper.dataset.years.split(',').map(year => parseInt(year));
+      }
+      this.activeQuarters.push(new Date().getFullYear() + '_' + Math.floor((new Date()).getMonth() / 3));
+      await this.setData()
     },
     methods: {
       async setData () {
         const data = await getData()
         this.configStaticFields = getConfig(data).static_fields
         this.heads = getHeaders(data)
-        this.rowsByQuarter = getRowsForCurrentYear(data)
-
+        while (this.yearData.length) {
+          this.yearData.pop()
+        }
+        this.years.forEach((year) => {
+          this.yearData.push({
+            year,
+            rowsByQuarter: getRowsForYear(data, year)
+          })    
+        })
         this.heads = this.heads.filter(head => {
           return this.configStaticFields.indexOf(parseInt(head.id)) > -1
         })
       },
-      showQuarter(index) {
-        return this.activeQuarters.indexOf(index) > -1;
+      showQuarter(quarterId) {
+        return this.activeQuarters.indexOf(quarterId) > -1;
       },
-      toggleQuarter(quarterIndex) {
-        const index = this.activeQuarters.indexOf(quarterIndex)
+      toggleQuarter(quarterId) {
+        const index = this.activeQuarters.indexOf(quarterId)
         if (index === -1) {
-          this.activeQuarters.push(quarterIndex)
+          this.activeQuarters.push(quarterId)
           return
         }
         this.activeQuarters.splice(index, 1)
@@ -122,6 +138,9 @@
 </script>
 
 <style scoped>
+  .header {
+    text-align: left;
+  }
   .table {
     box-sizing: border-box;
     width: 100%;
