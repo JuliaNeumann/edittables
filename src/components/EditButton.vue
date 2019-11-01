@@ -56,6 +56,8 @@
         padding: 20px;
         min-height: 500px;
         min-width: 200px;
+        overflow: auto;
+        max-height: calc(100vh - 100px);
     }
 
     .edit__intro {
