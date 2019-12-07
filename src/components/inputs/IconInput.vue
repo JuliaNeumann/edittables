@@ -39,7 +39,7 @@
           this.firstClick = false;
           return;
         }
-        this.inputContent = this.inputContent && this.inputContent.length > 0 ? JSON.stringify(this.inputContent) : ''
+        this.inputContent = this.inputContent && this.inputContent.length > 0 ? JSON.stringify(this.inputContent) : '[]'
         inputMixin.methods.saveNewValue.call(this)
       }
     },
