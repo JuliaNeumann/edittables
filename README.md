@@ -1,4 +1,6 @@
-# edittables
+# edittables [DEPRECATED]
+
+DEPRECATED - see (https://github.com/JuliaNeumann/event-planner-plugin)[https://github.com/JuliaNeumann/event-planner-plugin] for the new, full plugin.
 
 This app is built as the frontend part of a WordPress plugin (WIP) which allows to create tables for planning events, such as church services. The table contents can be edited on the fly by clicking on them (when using EditTable) or by clicking on an extra button (when using StaticTable).
 
